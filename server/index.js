@@ -5,6 +5,7 @@ import morgan from 'morgan'
 import dotenv from 'dotenv'
 import userRouter from './routes/user.js'
 import productRouter from './routes/product.js'
+import bodyParser from "body-parser";
 
 const app = express()
 dotenv.config()
@@ -14,12 +15,14 @@ app.use(morgan("combined"))
 app.use(express.json())
 app.use(express.urlencoded({limit: "30mb", extended: true}))
 app.use(cors())
+app.use(bodyParser.json())
 
+app.use('/public', express.static('public'))
 app.use('/users', userRouter);
 app.use('/product', productRouter)
-app.use("/", (req, res) => {
-  res.send("Welcome to E-Commerce Site")
-})
+// app.use("/", (req, res) => {
+//   res.send("Welcome to E-Commerce Site")
+// })
 
 // app.get("/", function (req, res) {
 //   res.send("hello world")

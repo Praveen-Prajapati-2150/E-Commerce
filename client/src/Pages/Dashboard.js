@@ -60,18 +60,7 @@ const DashboardRight = styled.div`
 `
 
 
-// const initialState = {
-//   title: "",
-//   description: "",
-//   price: "",
-//   category: "",
-//   imageFile: "",
-// }
-
-
 const Dashboard = () => {
-  // const [formData, setFormData] = useState(initialState);
-  // const {title, description, price, category, imageFile} = formData;
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const {loading, error} = useSelector((state) => ({...state.product}))
@@ -82,67 +71,29 @@ const Dashboard = () => {
   const [description, setDescription] = useState("")
   const [price, setPrice] = useState("")
   const [category, setCategory] = useState("")
-  // const [imageFile, setImageFile] = useState(null)
-
-  // console.log(formData)
-  const [productFormData, setProductFormData] = useState(null)
-
-  useEffect(() => {
-    error && console.log(error)
-  }, [error])
-
-  useEffect(() => {
-    setProductFormData(new FormData())
-  }, [])
-
-  useEffect(() => {
-    if (!productFormData) return;
-    productFormData.set('title', title);
-    productFormData.set('description', description);
-    productFormData.set('price', price);
-    productFormData.set('category', category);
-  }, [title, description, price, category, productFormData])
+  const [imageFile, setImageFile] = useState(null)
 
   const imageUpload = (e) => {
-    // productFormData.set('imageFile', e?.target?.files[0])
-    // setProductFormData(productFormData)
-    console.log(e.target.value)
+    setImageFile(e.target.files[0])
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch(createProduct({productFormData, toast, navigate}))
-    for (let pair of productFormData.entries()) {
-      console.log(pair[0] + ', ' + pair[1]);
+    if (title && description && price && category && imageFile) {
+      const formValue = new FormData();
+      formValue.append('imageFile', imageFile, imageFile.name)
+      formValue.append('title', title)
+      formValue.append('description', description)
+      formValue.append('price', price)
+      formValue.append('category', category)
+
+      dispatch(createProduct({formValue, toast, navigate}))
+
+      for (let pair of formValue.entries()) {
+        console.log(pair[0] + ', ' + pair[1]);
+      }
     }
   }
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault()
-  //   console.log("called")
-  //   if (title && description && price && category) {
-  //     const formValue = new FormData();
-  //     formValue.append('imageFile', formData.imageFile, formData.imageFile.name)
-  //     formValue.append('title', formData.title)
-  //     formValue.append('description', formData.description)
-  //     formValue.append('price', formData.price)
-  //     formValue.append('category', formData.category)
-  //
-  //     dispatch(createProduct({formValue, toast, navigate}))
-  //     // console.log("formValue", formValue)
-  //
-  //     //////////////////
-  //     // for (let key in formValue) {
-  //     //   console.log(key);
-  //     // }
-  //     //////////////////
-  //     for (let pair of formValue.entries()) {
-  //       console.log(pair[0] + ', ' + pair[1]);
-  //     }
-  //     //////////////////
-  //
-  //   }
-  // }
 
 
   return (
@@ -170,7 +121,7 @@ const Dashboard = () => {
 
           <label>Category</label>
           <select name={"category"} onChange={(e) => setCategory(e.target.value)}>
-            <option hidden disabled>Category</option>
+            <option selected disabled>Category</option>
             <option value={"Grocery"}>Grocery</option>
             <option value={"Mobiles"}>Mobiles</option>
             <option value={"Fashion"}>Fashion</option>
@@ -192,10 +143,6 @@ const Dashboard = () => {
               }
             </Button>
           </CenterDiv>
-
-          {/*<CenterDiv>*/}
-          {/*  <label>Already Registered, click to go <Link to={"/login"}>Login</Link> page</label>*/}
-          {/*</CenterDiv>*/}
 
         </Box>
       </DashboardRight>

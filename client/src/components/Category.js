@@ -9,6 +9,9 @@ import {Pagination, Navigation} from "swiper";
 import {Button} from "./styles/Button.styled";
 import {useDispatch, useSelector} from "react-redux";
 import {getProducts} from "../redux/featuers/productSlice";
+import {Link} from 'react-router-dom'
+import {toast} from 'react-toastify'
+
 
 const CategoryList = styled.div`
   //height: 300px;
@@ -95,7 +98,6 @@ const CategoryList = styled.div`
 
 
 `
-
 const Product = styled.div`
   padding: 10px 10px;
   display: flex;
@@ -143,18 +145,19 @@ const Product = styled.div`
 `
 
 const Category = () => {
-  const {products, loading} = useSelector((state) => ({...state.product}))
+  const {products, loading, error} = useSelector((state) => ({...state.product}))
   const dispatch = useDispatch()
 
   console.log("products", products)
 
   useEffect(() => {
     dispatch(getProducts())
-  }, [dispatch])
+  }, [])
 
-  if (loading) {
-    return <h2>Loading...</h2>
-  }
+  useEffect(() => {
+    toast.error(`${error}`)
+    console.log(error)
+  }, [error])
 
   return (
     <CategoryList>
@@ -165,7 +168,9 @@ const Category = () => {
           <p>Best of Electronics</p>
         </div>
         <div>
-          <Button>View All</Button>
+          <Link to={'/product/Best_of_Electronics'}>
+            <Button>View All</Button>
+          </Link>
         </div>
       </div>
 
@@ -181,24 +186,27 @@ const Category = () => {
       >
 
         {
-          products?.map((prod, index) => (
-            <SwiperSlide key={index}>
-              <Product>
-                <div className={"image"}>
-                  {/*<img src={"/assets/home/product_1.webp"} alt={"prod"}/>*/}
-                  {
-                    prod.imageFile ?
-                      <img src={prod.imageFile} alt={"prod"}/>
-                      :
-                      <img src={"/assets/product/no__product.png"} alt={"prod"}/>
-                  }
-                </div>
-                <h3>{prod.title}</h3>
-                <h4>From {prod.price}</h4>
-                <label>{prod.description}</label>
-              </Product>
-            </SwiperSlide>
-          ))
+          products?.map((prod, index) => {
+              if (loading) return <h3>loading</h3>
+              return (
+                <SwiperSlide key={index}>
+                  <Product>
+                    <div className={"image"}>
+                      {
+                        prod.imageFile ?
+                          <img src={process.env.REACT_APP_IMAGE_PATH + prod.imageFile} alt={"prod"}/>
+                          :
+                          <img src={"/assets/product/no__product.png"} alt={"prod"}/>
+                      }
+                    </div>
+                    <h3>{prod.title}</h3>
+                    <h4>From {prod.price}</h4>
+                    <label>{prod.description}</label>
+                  </Product>
+                </SwiperSlide>
+              )
+            }
+          )
         }
 
       </Swiper>

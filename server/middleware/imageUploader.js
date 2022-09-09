@@ -1,18 +1,13 @@
-import multer from 'multer'
-// const upload = multer({dest: 'public/uploads/'})
-//
-// const path = 'public/uploads/'
+// import multer from "multer";
 //
 // const storage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, path);
+//   destination: function (req, file, cb) {
+//     cb(null, 'public/uploads/')
 //   },
-//   filename: (req, file, cb) => {
-//     const uniqueName = `${Date.now()}-${Math.round(Math.random() * 1e9)}${path.extname(file.originalname)}`;
-//     // 1234544-4545454.jpeg
-//     cb(null, uniqueName)
+//   filename: function (req, file, cb) {
+//     cb(null, Date.now() + '_' + file.originalname)
 //   }
-// });
+// })
 //
 // const upload = multer({
 //   storage: storage,
@@ -25,36 +20,3 @@ import multer from 'multer'
 //     }
 //   }
 // })
-
-// module.exports.send = (req, res, next) => {
-//   return upload.single('image')(req, res, () => {
-//     if (!req.file)
-//       return res.json({message: "Invalid file type"})
-//     next()
-//   })
-// }
-
-// export const MulterService = (req, res, next) => {
-//   return upload.single('image')(req, res, () => {
-//     if (!req.file)
-//       return res.json({message: "Invalid file type"})
-//     next()
-//   })
-// }
-
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/');
-  },
-  filename: (req, file, cb) => {
-    const uniqueName = `${Date.now()}-${Math.round(Math.random() * 1e9)}${file.originalname}`;
-    // 1234544-4545454.jpeg
-    cb(null, uniqueName);
-  },
-});
-
-export const MulterService = multer({
-  storage,
-  limits: {fileSize: 1000000 * 2},
-}).single('image');

@@ -15,7 +15,6 @@ export const getProducts = createAsyncThunk(
 
 export const createProduct = createAsyncThunk("product/createProduct",
   async ({formValue, toast, navigate}, {rejectedWithValue}) => {
-    console.log("formValue", formValue)
     try {
       const response = await api.createProduct(formValue)
       toast.success("Product Created successfully")
