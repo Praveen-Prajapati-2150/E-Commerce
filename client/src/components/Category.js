@@ -144,14 +144,14 @@ const Product = styled.div`
 
 `
 
-const Category = () => {
+const Category = ({type}) => {
   const {products, loading, error} = useSelector((state) => ({...state.product}))
   const dispatch = useDispatch()
 
   console.log("products", products)
 
   useEffect(() => {
-    dispatch(getProducts())
+    dispatch(getProducts(type))
   }, [])
 
   useEffect(() => {

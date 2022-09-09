@@ -3,9 +3,9 @@ import * as api from '../api'
 
 export const getProducts = createAsyncThunk(
   "product/getProducts",
-  async (page, {rejectedWithValue}) => {
+  async (type, {rejectedWithValue}) => {
     try {
-      const response = await api.getProducts()
+      const response = await api.getProducts(type)
       return response.data;
     } catch (err) {
       return rejectedWithValue(err.response.data)
@@ -15,6 +15,7 @@ export const getProducts = createAsyncThunk(
 
 export const createProduct = createAsyncThunk("product/createProduct",
   async ({formValue, toast, navigate}, {rejectedWithValue}) => {
+    console.log("formValue", formValue)
     try {
       const response = await api.createProduct(formValue)
       toast.success("Product Created successfully")

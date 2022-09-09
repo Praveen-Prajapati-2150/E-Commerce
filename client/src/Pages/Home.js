@@ -125,7 +125,8 @@ const Home = () => {
         </SwiperSlide>
       </Swiper>
 
-      <CategoryProducts/>
+      <CategoryProducts type={"Home"}/>
+      <CategoryProducts type={"Home"}/>
 
 
     </Section>

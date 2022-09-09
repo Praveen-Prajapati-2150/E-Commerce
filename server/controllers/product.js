@@ -23,3 +23,19 @@ export const getProducts = async (req, res) => {
     res.status(404).json({message: "Something went wrong"})
   }
 }
+
+export const productType = async (req, res) => {
+  const productType = req.params.type
+  console.log(productType)
+  try {
+    const newProductData = await ProductModel.find({category: productType})
+    res.status(200).json(newProductData)
+  } catch (err) {
+    res.status(404).json({message: "Something went wrong"})
+  }
+}
+
+
+
+
+

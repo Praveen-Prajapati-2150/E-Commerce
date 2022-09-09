@@ -35,11 +35,12 @@ const upload = multer({
 // const upload = multer({storage: storage})
 
 
-import {createProduct, getProducts} from "../controllers/product.js";
+import {createProduct, getProducts, productType} from "../controllers/product.js";
 
 // router.post("/", auth, MulterService.send, createProduct)
 router.post("/", auth, upload.single('imageFile'), createProduct)
 // router.post("/", auth, createProduct)
 router.get("/", getProducts)
+router.get("/:type", productType)
 
 export default router;
