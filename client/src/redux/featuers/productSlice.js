@@ -13,6 +13,18 @@ export const getProducts = createAsyncThunk(
   }
 )
 
+export const getProduct = createAsyncThunk(
+  "product/getProduct",
+  async (id, {rejectedWithValue}) => {
+    try {
+      const response = await api.getProduct(id)
+      return response.data
+    } catch (err) {
+      return rejectedWithValue(err.response.data)
+    }
+  }
+)
+
 export const createProduct = createAsyncThunk("product/createProduct",
   async ({formValue, toast, navigate}, {rejectedWithValue}) => {
     console.log("formValue", formValue)
@@ -31,6 +43,7 @@ export const createProduct = createAsyncThunk("product/createProduct",
 const productSlice = createSlice({
   name: "product",
   initialState: {
+    product: {},
     products: [],
     error: "",
     loading: false,
@@ -48,6 +61,19 @@ const productSlice = createSlice({
       state.loading = false
       state.error = action.payload.message()
     },
+
+    [getProduct.pending]: (state, action) => {
+      state.loading = true
+    },
+    [getProduct.fulfilled]: (state, action) => {
+      state.loading = false
+      state.product = action.payload
+    },
+    [getProduct.rejected]: (state, action) => {
+      state.loading = false
+      state.error = action.payload.message()
+    },
+
     [createProduct.pending]: (state, action) => {
       state.loading = true
     },
@@ -59,7 +85,8 @@ const productSlice = createSlice({
     [createProduct.rejected]: (state, action) => {
       state.loading = false
       state.error = action.payload.message()
-    }
+    },
+
   }
 })
 

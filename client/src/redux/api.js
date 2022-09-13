@@ -17,15 +17,12 @@ API.interceptors.request.use((req) => {
 export const signIn = (formValue) => API.post("/users/signin", formValue)
 export const signUp = (formValue) => API.post("/users/signup", formValue)
 
-export const getProducts = (type) => API.get(`/product/${type}`)
+// export const getProducts = (type) => API.get(`/product/${type}`)
+export const getProducts = () => API.get(`/product`)
+export const getProduct = (id) => API.get(`product/${id}`)
 export const createProduct = (formValue) => API.post("/product", formValue, {
   headers: {
     "Content-Type": "multipart/form-data",
   }
 },)
 
-// axios.post("/path/to/api", data, {
-//   headers: {
-//     "Content-Type": "multipart/form-data",
-//   },
-// });

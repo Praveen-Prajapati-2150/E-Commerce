@@ -7,6 +7,58 @@ import "swiper/css/navigation";
 import {Autoplay, Pagination, Navigation} from "swiper";
 import CategoryProducts from "../components/Category";
 
+const Home = () => {
+
+  return (
+    <Section>
+
+      <Category>
+        {
+          [...Array(10)].map((item, index) => {
+            return (
+              <Box key={index}>
+                <img src={"/assets/home/category.webp"} alt={"img"}/>
+                <label>Mobiles</label>
+              </Box>
+            )
+          })
+        }
+
+      </Category>
+
+      <Swiper
+        slidesPerView={1}
+        spaceBetween={30}
+        loop={true}
+        // pagination={{
+        //   clickable: true,
+        // }}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
+        navigation={true}
+        modules={[Autoplay, Navigation]}
+        className="mySwiper"
+      >
+        <SwiperSlide>
+          <img src={"/assets/home/car_1.webp"} alt={"car_1"}/>
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src={"/assets/home/car_2.webp"} alt={"car_1"}/>
+        </SwiperSlide>
+      </Swiper>
+
+      <CategoryProducts />
+      {/*<CategoryProducts type={"Home"}/>*/}
+
+
+    </Section>
+  );
+};
+
+export default Home;
+
 
 const Section = styled.div`
   height: 100%;
@@ -81,56 +133,3 @@ const Box = styled.div`
     width: auto;
   }
 `
-
-
-const Home = () => {
-
-  return (
-    <Section>
-
-      <Category>
-        {
-          [...Array(10)].map((item, index) => {
-            return (
-              <Box key={index}>
-                <img src={"/assets/home/category.webp"} alt={"img"}/>
-                <label>Mobiles</label>
-              </Box>
-            )
-          })
-        }
-
-      </Category>
-
-      <Swiper
-        slidesPerView={1}
-        spaceBetween={30}
-        loop={true}
-        // pagination={{
-        //   clickable: true,
-        // }}
-        autoplay={{
-          delay: 2500,
-          disableOnInteraction: false,
-        }}
-        navigation={true}
-        modules={[Autoplay, Navigation]}
-        className="mySwiper"
-      >
-        <SwiperSlide>
-          <img src={"/assets/home/car_1.webp"} alt={"car_1"}/>
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src={"/assets/home/car_2.webp"} alt={"car_1"}/>
-        </SwiperSlide>
-      </Swiper>
-
-      <CategoryProducts type={"Home"}/>
-      <CategoryProducts type={"Home"}/>
-
-
-    </Section>
-  );
-};
-
-export default Home;

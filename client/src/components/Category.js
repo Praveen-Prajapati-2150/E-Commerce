@@ -13,6 +13,82 @@ import {Link} from 'react-router-dom'
 import {toast} from 'react-toastify'
 
 
+const Category = ({type}) => {
+  const {products, loading, error} = useSelector((state) => ({...state.product}))
+  const dispatch = useDispatch()
+
+  console.log("products", products)
+
+  useEffect(() => {
+    dispatch(getProducts(type))
+  }, [])
+
+  useEffect(() => {
+    toast.error(`${error}`)
+    console.log(error)
+  }, [error])
+
+  return (
+    <CategoryList>
+
+      <div className={"heading"}>
+        <div>
+          <h2>Best of Electronics</h2>
+          <p>Best of Electronics</p>
+        </div>
+        <div>
+          <Link to={'/product/Best_of_Electronics'}>
+            <Button>View All</Button>
+          </Link>
+        </div>
+      </div>
+
+      <Swiper
+        slidesPerView={6.5}
+        spaceBetween={20}
+        pagination={{
+          // clickable: true,
+        }}
+        navigation={true}
+        modules={[Navigation]}
+        className="mySwiper"
+      >
+
+        {
+          products?.map((prod, index) => {
+              if (loading) return <h3>loading</h3>
+              return (
+                <SwiperSlide key={index}>
+                  <Link to={`/product/${prod._id}`}>
+                    <Product>
+                      <div className={"image"}>
+                        {
+                          prod.imageFile ?
+                            <img src={process.env.REACT_APP_IMAGE_PATH + prod.imageFile} alt={"prod"}/>
+                            :
+                            <img src={"/assets/product/no__product.png"} alt={"prod"}/>
+                        }
+                      </div>
+                      <h3>{prod.title}</h3>
+                      <h4>From {prod.price}</h4>
+                      <label>{prod.description}</label>
+                    </Product>
+                  </Link>
+                </SwiperSlide>
+              )
+            }
+          )
+        }
+
+      </Swiper>
+
+    </CategoryList>
+  );
+};
+
+export default Category;
+
+
 const CategoryList = styled.div`
   //height: 300px;
   width: 100%;
@@ -143,76 +219,3 @@ const Product = styled.div`
 
 
 `
-
-const Category = ({type}) => {
-  const {products, loading, error} = useSelector((state) => ({...state.product}))
-  const dispatch = useDispatch()
-
-  console.log("products", products)
-
-  useEffect(() => {
-    dispatch(getProducts(type))
-  }, [])
-
-  useEffect(() => {
-    toast.error(`${error}`)
-    console.log(error)
-  }, [error])
-
-  return (
-    <CategoryList>
-
-      <div className={"heading"}>
-        <div>
-          <h2>Best of Electronics</h2>
-          <p>Best of Electronics</p>
-        </div>
-        <div>
-          <Link to={'/product/Best_of_Electronics'}>
-            <Button>View All</Button>
-          </Link>
-        </div>
-      </div>
-
-      <Swiper
-        slidesPerView={6.5}
-        spaceBetween={20}
-        pagination={{
-          // clickable: true,
-        }}
-        navigation={true}
-        modules={[Navigation]}
-        className="mySwiper"
-      >
-
-        {
-          products?.map((prod, index) => {
-              if (loading) return <h3>loading</h3>
-              return (
-                <SwiperSlide key={index}>
-                  <Product>
-                    <div className={"image"}>
-                      {
-                        prod.imageFile ?
-                          <img src={process.env.REACT_APP_IMAGE_PATH + prod.imageFile} alt={"prod"}/>
-                          :
-                          <img src={"/assets/product/no__product.png"} alt={"prod"}/>
-                      }
-                    </div>
-                    <h3>{prod.title}</h3>
-                    <h4>From {prod.price}</h4>
-                    <label>{prod.description}</label>
-                  </Product>
-                </SwiperSlide>
-              )
-            }
-          )
-        }
-
-      </Swiper>
-
-    </CategoryList>
-  );
-};
-
-export default Category;

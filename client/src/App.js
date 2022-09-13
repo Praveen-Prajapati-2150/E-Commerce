@@ -12,6 +12,7 @@ import Home from "./Pages/Home";
 import Dashboard from "./Pages/Dashboard";
 import {useDispatch} from "react-redux";
 import {setUser} from './redux/featuers/authslice';
+import SingleProduct from "./Pages/SingleProduct";
 
 
 const theme = {
@@ -45,11 +46,12 @@ function App() {
       <ThemeProvider theme={theme}>
         <GlobalStyles/>
         <Appp>
-          <ToastContainer/>
+          <ToastContainer autoClose={1000}/>
           <Header/>
 
           <Routes>
             <Route path={"/"} element={<Home/>}/>
+            <Route path={"/product/:id"} element={<SingleProduct/>}/>
             <Route path={"/login"} element={<Login/>}/>
             <Route path={"/signup"} element={<Signup/>}/>
             <Route path={"/dashboard"} element={<Dashboard/>}/>
