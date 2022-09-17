@@ -26,13 +26,39 @@ export const HeaderStyled = styled.header`
           }
 
           .Input {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            justify-content: space-between;
+            border-radius: 4px;
+            width: 20%;
+            padding: 0 5px;
+
             input {
-              width: 120%;
+              width: 100%;
               outline: none;
               border: none;
               padding: 10px 10px;
-              margin: 0 0 0 20px;
+              margin: 0 0 0 0;
               border-radius: 4px;
+            }
+            
+            button{
+              border: none;
+              outline: none;
+              color: darkblue;
+              background-color: white;
+              font-size: 20px;
+              padding: 6px;
+              border-radius: 4px;
+              cursor: pointer;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              
+              &:hover{
+                color: green;
+              }
             }
           }
 

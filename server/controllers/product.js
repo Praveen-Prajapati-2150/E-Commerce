@@ -1,4 +1,5 @@
 import ProductModel from "../models/product.js";
+import mongoose from 'mongoose'
 
 export const createProduct = async (req, res) => {
 
@@ -7,15 +8,14 @@ export const createProduct = async (req, res) => {
 
   const imageFile = (req.file) ? req.file.filename : null
 
-  let {title, description, price, category} = req.body
-  let data = new ProductModel({title, description, price, category, imageFile})
+  let {title, description, price, category, creator} = req.body
+  let data = new ProductModel({title, description, price, category, imageFile, creator})
   let response = await data.save()
   res.status(201).json(response)
 
 }
 
 export const getProducts = async (req, res) => {
-
   try {
     const products = await ProductModel.find()
     res.status(200).json(products)
@@ -24,21 +24,9 @@ export const getProducts = async (req, res) => {
   }
 }
 
-export const productType = async (req, res) => {
-  const productType = req.params.type
-  console.log(productType)
-  try {
-    const newProductData = await ProductModel.find({category: productType})
-    res.status(200).json(newProductData)
-  } catch (err) {
-    res.status(404).json({message: "Something went wrong"})
-  }
-}
-
 export const getProduct = async (req, res) => {
   const {id} = req.params;
-  // console.log(id)
-  try{
+  try {
     const product = await ProductModel.findById(id)
     res.status(200).json(product)
   } catch (err) {
@@ -46,6 +34,86 @@ export const getProduct = async (req, res) => {
   }
 }
 
+export const getProductsByUser = async (req, res) => {
+  const {id} = req.params;
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({message: "User doesn't exist"})
+  }
+  const userProducts = await ProductModel.find({creator: id})
+  res.status(200).json(userProducts)
+}
+
+export const updateProduct = async (req, res) => {
+  const {id} = req.params;
+  let {title, description, price, category, creator} = req.body
+  // const imageFile = (req.file) ? req.file.filename : null
+  // console.log(id)
+  // console.log(req.body)
+
+  try {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(404).json({message: "User doesn't exist"})
+    }
+
+    const updateProduct = {title, description, price, category, creator, _id: id,}
+
+    // if(imageFile.length !== null){
+    // updateProduct({
+    //   ...updateProduct,
+    //     imageFile: imageFile
+    // })
+    // updateProduct[imageFile] = imageFile
+    // updateProduct.imageFile = imageFile
+    // }
+
+    let response = await ProductModel.findByIdAndUpdate(id, updateProduct, {new: true})
+    // let response = await ProductModel.findByIdAndUpdate(id, {title, description, price, category, creator}, {new: true})
+    res.status(200).json(response)
+
+  } catch (err) {
+    res.status(404).json({message: "Something went wrong"})
+  }
+}
+
+export const deleteTour = async (req, res) => {
+  const {id} = req.params;
+
+  try {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(404).json({message: "User doesn't exist"})
+    }
+    await ProductModel.findByIdAndDelete(id);
+    res.json({message: "Product Deleted Successfully"})
+
+  } catch (err) {
+    res.status(404).json({message: "Something went wrong"})
+  }
+}
+
+export const getProductsBySearch = async (req, res) => {
+  const {searchQuery} = req.params;
+  console.log({searchQuery})
+  try {
+    const newTitle = new RegExp(searchQuery, "i")
+    const products = await ProductModel.find({title: newTitle})
+    res.json(products);
+  } catch (err) {
+    console.log(err)
+    res.status(404).json({message: "Something went wrong"})
+  }
+}
+
+export const getRelatedProducts = async (req, res) => {
+  const newCategory = req.params.category;
+  console.log("category", newCategory)
+  // const {category} = req.params;
+  try {
+    const products = await ProductModel.find({category: newCategory})
+    res.status(200).json(products)
+  } catch (err) {
+    res.status(404).json({message: "Something went wrong"})
+  }
+}
 
 
 

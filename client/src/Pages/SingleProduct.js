@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react';
-import {useParams, useNavigate} from "react-router-dom";
-import {getProduct} from "../redux/featuers/productSlice";
+import React, {useEffect, useState} from 'react';
+import {useParams, useNavigate, Link} from "react-router-dom";
+import {getProduct, getRelatedProducts} from "../redux/featuers/productSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {FaShoppingCart} from 'react-icons/fa'
 import {FcElectricity} from 'react-icons/fc'
@@ -9,13 +9,24 @@ import {GiElectric} from 'react-icons/gi'
 import styled from 'styled-components'
 import {AiFillStar} from 'react-icons/ai'
 import {MdLabel} from 'react-icons/md'
+import {Navigation} from "swiper";
+import {Swiper, SwiperSlide} from "swiper/react";
 
+
+const excerpt = (str, count) => {
+  if (str.length > count) {
+    str = str.substring(0, count) + " ...";
+  }
+  return str;
+};
 
 const SingleProduct = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const {id} = useParams();
-  const {product} = useSelector((state) => ({...state.product}))
+  const {product, relatedProducts, loading} = useSelector((state) => ({...state.product}))
+  const [category, setCategory] = useState(product.category)
+
 
   useEffect(() => {
     if (id) {
@@ -23,55 +34,114 @@ const SingleProduct = () => {
     }
   }, [id])
 
+  useEffect(() => {
+    dispatch(getRelatedProducts(category))
+  }, [category])
+
+  useEffect(() => {
+    console.log("fetching")
+    setCategory(product.category)
+  }, [product])
+
   return (
     <Main>
-      <div className={"left_div"}>
-        <div className={"image"}>
-          {
-            product.imageFile ?
-              <img src={process.env.REACT_APP_IMAGE_PATH + product.imageFile} alt={"prod"}/>
-              :
-              <img src={"/assets/product/no__product.png"} alt={"prod"}/>
-          }
-        </div>
-        <div className={"buttons"}>
-          <button><FaShoppingCart className={"icon"}/> ADD TO CART</button>
-          <button><GiElectric className={"icon1"}/> BUY NOW</button>
-        </div>
-      </div>
-
-      <div className={"right_div"}>
-        <p className={"title"}>{product.title}</p>
-        <p className={"description"}>{product.description}</p>
-        <button>4.4 <AiFillStar className={"icon"}/></button>
-
-        <div className={"price"}>
-          <h4>₹{product.price}</h4>
-          <h5>₹35,99944%</h5>
-          <h6>off</h6>
-        </div>
-
-        <div className={"offers"}>
-          <h1>Available Offer</h1>
-          <div className={"offer__p"}><MdLabel className={"icon"}/><p><span>Bank Offer </span>5% Cashback on Flipkart
-            Axis Bank CardT&</p>
+        <div className={"left_div"}>
+          <div className={"image"}>
+            {
+              product.imageFile ?
+                <img src={process.env.REACT_APP_IMAGE_PATH + product.imageFile} alt={"prod"}/>
+                :
+                <img src={"/assets/product/no__product.png"} alt={"prod"}/>
+            }
           </div>
-          <div className={"offer__p"}><MdLabel className={"icon"}/><p><span>Partner Offer </span>Buy this product and
-            get upto ₹500 off on
-            Flipkart
-            FurnitureKnow More</p></div>
-          <div className={"offer__p"}><MdLabel className={"icon"}/><p><span>Partner Offer </span>Purchase this product &
-            win a surprise
-            cashback
-            coupon for The Big Billion Days Sale 2022Know More</p></div>
-          <div className={"offer__p"}><MdLabel className={"icon"}/><p><span>Partner Offer </span>Sign up for Flipkart
-            Pay Later and get
-            Flipkart
-            Gift Card worth upto ₹1000*Know More</p></div>
+          <div className={"buttons"}>
+            <button><FaShoppingCart className={"icon"}/> ADD TO CART</button>
+            <button><GiElectric className={"icon1"}/> BUY NOW</button>
+          </div>
         </div>
 
-        <p className={"warranty"}>3 Years Warranty</p>
-      </div>
+        <div className={"right_div"}>
+          <>
+            <p className={"title"}>{product.title}</p>
+            <p className={"description"}>{product.description}</p>
+            <button>4.4 <AiFillStar className={"icon"}/></button>
+
+            <div className={"price"}>
+              <h4>₹{product.price}</h4>
+              <h5>{}</h5>
+              <h5>₹{Number(product.price)+Number(product.price*11.1/100)}</h5>
+              <h6>10% off</h6>
+            </div>
+
+            <div className={"offers"}>
+              <h1>Available Offer</h1>
+              <div className={"offer__p"}><MdLabel className={"icon"}/><p><span>Bank Offer </span>5% Cashback on
+                Flipkart
+                Axis Bank CardT&</p>
+              </div>
+              <div className={"offer__p"}><MdLabel className={"icon"}/><p><span>Partner Offer </span>Buy this product
+                and
+                get upto ₹500 off on
+                Flipkart
+                FurnitureKnow More</p></div>
+              <div className={"offer__p"}><MdLabel className={"icon"}/><p><span>Partner Offer </span>Purchase this
+                product &
+                win a surprise
+                cashback
+                coupon for The Big Billion Days Sale 2022Know More</p></div>
+              <div className={"offer__p"}><MdLabel className={"icon"}/><p><span>Partner Offer </span>Sign up for
+                Flipkart
+                Pay Later and get
+                Flipkart
+                Gift Card worth upto ₹1000*Know More</p></div>
+            </div>
+
+            <p className={"warranty"}>3 Years Warranty</p>
+          </>
+
+          <Swiper
+            slidesPerView={2}
+            spaceBetween={20}
+            pagination={{
+              // clickable: true,
+            }}
+            navigation={true}
+            modules={[Navigation]}
+            className="mySwiper"
+          >
+
+            {
+              relatedProducts?.map((prod, index) => {
+                  if (loading) return <h3>loading</h3>
+                  return (
+                    <SwiperSlide key={index}>
+                      <Link to={`/product/${prod._id}`}>
+                        <Product>
+                          <div className={"image"}>
+                            {
+                              prod.imageFile ?
+                                <img src={process.env.REACT_APP_IMAGE_PATH + prod.imageFile} alt={"prod"}/>
+                                :
+                                <img src={"/assets/product/no__product.png"} alt={"prod"}/>
+                            }
+                          </div>
+                          <h3>{prod.title}</h3>
+                          <h4>From ₹{prod.price}</h4>
+                          <label>
+                            {excerpt(prod.description, 25)}
+                          </label>
+                        </Product>
+                      </Link>
+                    </SwiperSlide>
+                  )
+                }
+              )
+            }
+
+          </Swiper>
+
+        </div>
+
 
     </Main>
   );
@@ -82,21 +152,24 @@ export default SingleProduct;
 
 const Main = styled.div`
   //background-color: lightpink;
-  height: auto;
+  //height: auto;
   width: 100%;
   display: flex;
-  padding: 0 5%;
+  padding: 0 5% 5% 5%;
+  //overflow-y: scroll;
   //align-items: center;
   //justify-content: center;
+  //overflow: hidden;
 
   .left_div {
-    width: 50%;
+    width: 45%;
     height: 100%;
     //background-color: lightgreen;
     display: flex;
     align-items: center;
     flex-direction: column;
     padding: 2% 0%;
+    //position: absolute;
 
 
     .image {
@@ -158,13 +231,16 @@ const Main = styled.div`
   }
 
   .right_div {
-    width: 50%;
+    width: 55%;
     height: 100%;
     display: flex;
     align-items: flex-start;
     flex-direction: column;
     background-color: #ffffff;
     padding: 2% 2% 0 0;
+    //background-color: lightpink;
+    
+    //overflow-y: scroll;
 
     .title {
       font-size: 1.9rem;
@@ -244,7 +320,7 @@ const Main = styled.div`
           color: green;
           margin: 5px 0 0 0;
         }
-        
+
         p {
           font-size: 1rem;
           padding: 0 0 0 5px;
@@ -256,12 +332,112 @@ const Main = styled.div`
         }
       }
     }
-    
-    .warranty{
+
+    .warranty {
       font-size: 1rem;
       padding: 5px 0;
       font-weight: 600;
     }
+
+    .swiper {
+      width: 100%;
+      height: 80%;
+      background-color: #ffffff;
+      padding: 20px 20px;
+      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+
+      .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        text-decoration: none;
+        //width: 300px;
+        //background: #345be0;
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+
+        a{
+          text-decoration: none;
+        }
+
+        .swiper-slide img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          text-decoration: none;
+          //background-color: green;
+        }
+      }
+    }
+
   }
 `
 
+const Product = styled.div`
+  padding: 10px 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-decoration: none;
+  //background-color: lightpink;
+
+  .image {
+    //height: auto;
+    max-width: 300px;
+    max-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    //background-color: lightgreen;
+
+    img {
+      max-width: 300px;
+      max-height: 200px;
+      //width: 100%;
+      //height: 100%;
+    }
+
+    &:hover {
+      transform: scale(1.015);
+    }
+  }
+
+  h3, h4, label {
+    text-align: center;
+    white-space: nowrap;
+    text-decoration: none;
+  }
+
+  h3 {
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 10px 0 0 0;
+    text-decoration: none;
+  }
+
+  h4 {
+    font-size: 1.1rem;
+    color: #5db45d;
+    font-weight: 400;
+    padding: 5px 0 0 0;
+  }
+
+  label {
+    font-size: 0.9rem;
+    color: #a2a2a2;
+    padding: 5px 0 0 0;
+  }
+
+
+`

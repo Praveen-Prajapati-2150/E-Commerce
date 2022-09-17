@@ -12,15 +12,22 @@ import {getProducts} from "../redux/featuers/productSlice";
 import {Link} from 'react-router-dom'
 import {toast} from 'react-toastify'
 
+const excerpt = (str, count) => {
+  if (str.length > count) {
+    str = str.substring(0, count) + " ...";
+  }
+  return str;
+};
 
-const Category = ({type}) => {
+
+const Category = () => {
   const {products, loading, error} = useSelector((state) => ({...state.product}))
   const dispatch = useDispatch()
 
   console.log("products", products)
 
   useEffect(() => {
-    dispatch(getProducts(type))
+    dispatch(getProducts())
   }, [])
 
   useEffect(() => {
@@ -44,7 +51,7 @@ const Category = ({type}) => {
       </div>
 
       <Swiper
-        slidesPerView={6.5}
+        slidesPerView={6}
         spaceBetween={20}
         pagination={{
           // clickable: true,
@@ -70,8 +77,10 @@ const Category = ({type}) => {
                         }
                       </div>
                       <h3>{prod.title}</h3>
-                      <h4>From {prod.price}</h4>
-                      <label>{prod.description}</label>
+                      <h4>From ₹{prod.price}</h4>
+                      <label>
+                        {excerpt(prod.description, 25)}
+                      </label>
                     </Product>
                   </Link>
                 </SwiperSlide>
@@ -145,6 +154,8 @@ const CategoryList = styled.div`
     .swiper-slide {
       text-align: center;
       font-size: 18px;
+      text-decoration: none;
+      //width: 300px;
       //background: #345be0;
       /* Center slide text vertically */
       display: -webkit-box;
@@ -159,49 +170,62 @@ const CategoryList = styled.div`
       -ms-flex-align: center;
       -webkit-align-items: center;
       align-items: center;
+      
+      a{
+        text-decoration: none;
+      }
 
       .swiper-slide img {
         display: block;
         width: 100%;
         height: 100%;
         object-fit: cover;
+        text-decoration: none;
         //background-color: green;
       }
     }
   }
-
-
-
-
 `
 const Product = styled.div`
   padding: 10px 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  text-decoration: none;
   //background-color: lightpink;
 
   .image {
-    height: auto;
+    //height: auto;
+    max-width: 300px;
+    max-height: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
     //background-color: lightgreen;
+    
+    img{
+      max-width: 300px;
+      max-height: 200px;
+      //width: 100%;
+      //height: 100%;
+    }
 
     &:hover {
-      transform: scale(1.02);
+      transform: scale(1.015);
     }
   }
 
   h3, h4, label {
     text-align: center;
     white-space: nowrap;
+    text-decoration: none;
   }
 
   h3 {
     font-size: 1rem;
     font-weight: 500;
     padding: 10px 0 0 0;
+    text-decoration: none;
   }
 
   h4 {

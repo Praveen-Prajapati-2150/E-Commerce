@@ -13,6 +13,9 @@ import Dashboard from "./Pages/Dashboard";
 import {useDispatch} from "react-redux";
 import {setUser} from './redux/featuers/authslice';
 import SingleProduct from "./Pages/SingleProduct";
+import DashboardHome from "./Pages/DashboardHome";
+import AddProduct from './Pages/AddProduct'
+import SearchProducts from "./Pages/SearchProducts";
 
 
 const theme = {
@@ -54,7 +57,13 @@ function App() {
             <Route path={"/product/:id"} element={<SingleProduct/>}/>
             <Route path={"/login"} element={<Login/>}/>
             <Route path={"/signup"} element={<Signup/>}/>
-            <Route path={"/dashboard"} element={<Dashboard/>}/>
+            <Route path={`/product/search/:searchQuery`} element={<SearchProducts/>}/>
+
+            <Route path={"/dashboard"} element={<Dashboard/>}>
+              <Route path={"/dashboard"} element={<DashboardHome/>}/>
+              <Route path={"/dashboard/add_product"} element={<AddProduct/>}/>
+              <Route path={"/dashboard/update_tour/:id"} element={<AddProduct/>}/>
+            </Route>
           </Routes>
 
         </Appp>

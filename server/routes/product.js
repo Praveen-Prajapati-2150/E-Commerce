@@ -16,32 +16,41 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage: storage,
   fileFilter: (req, file, cb) => {
-    // if (!file.originalname.match(/\.(png|jpg|jpeg|webp|.mp4|svg)$/)) {
-      if (file.mimetype === 'image/png' ||
-        file.mimetype === 'image/jpg' ||
-        file.mimetype === 'image/webp' ||
-        file.mimetype === 'image/jpeg' ||
-        file.mimetype === 'image/svg' ||
-        file.mimetype === 'image/gif' ||
-        file.mimetype === 'application/pdf'
-      ) {
+    if (file.mimetype === 'image/png' ||
+      file.mimetype === 'image/jpg' ||
+      file.mimetype === 'image/webp' ||
+      file.mimetype === 'image/jpeg' ||
+      file.mimetype === 'image/svg' ||
+      file.mimetype === 'image/gif' ||
+      file.mimetype === 'application/pdf'
+    ) {
       cb(null, true)
     } else {
       cb(null, false)
-      return cb(new Error('Only .png, .jpg, .mp4 and .jpeg format allowed!'))
+      return cb(new Error('Only .png, .jpg, .webp, .svg, .gif, .pdf and .jpeg format allowed!'))
     }
   }
 })
-// const upload = multer({storage: storage})
 
+import {
+  createProduct,
+  getProduct,
+  getProducts,
+  getRelatedProducts,
+  getProductsByUser,
+  updateProduct,
+  deleteTour,
+  getProductsBySearch
+} from "../controllers/product.js";
 
-import {createProduct, getProduct, getProducts, productType} from "../controllers/product.js";
-
-// router.post("/", auth, MulterService.send, createProduct)
-router.post("/", auth, upload.single('imageFile'), createProduct)
-// router.post("/", auth, createProduct)
 router.get("/", getProducts)
 router.get("/:id", getProduct)
-router.get("/:type", productType)
+router.get("/relatedProducts/:category", getRelatedProducts)
+router.get("/search/:searchQuery", getProductsBySearch)
+
+router.post("/", auth, upload.single('imageFile'), createProduct)
+router.patch("/:id", auth, upload.single('imageFile'), updateProduct)
+router.delete("/:id", auth, deleteTour)
+router.get("/userProducts/:id", auth, getProductsByUser)
 
 export default router;

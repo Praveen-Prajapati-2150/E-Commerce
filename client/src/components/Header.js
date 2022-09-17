@@ -1,17 +1,19 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import {HeaderStyled} from "./styles/Header.styled";
 import {FaShoppingCart} from 'react-icons/fa'
 import {CgProfile} from 'react-icons/cg'
-// import {BiSearchAlt} from 'react-icons/lo'
+import {BiSearchAlt} from 'react-icons/bi'
 import {Input} from "./styles/Input.styled";
 import {useDispatch, useSelector} from "react-redux";
 import {setLogout} from "../redux/featuers/authslice";
 import decode from 'jwt-decode'
+import {getProductsBySearch} from "../redux/featuers/productSlice";
 
 
 const Header = () => {
   const {user} = useSelector((state) => ({...state.auth}))
+  const [searchQuery, setSearchQuery] = useState("")
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -29,6 +31,36 @@ const Header = () => {
     dispatch(setLogout())
   }
 
+  const searchProducts = () => {
+    if (searchQuery) {
+      dispatch(getProductsBySearch({searchQuery, navigate}))
+      navigate(`/product/search/${searchQuery}`);
+      setSearchQuery("")
+    } else {
+      navigate("/")
+    }
+  }
+
+
+  useEffect(() => {
+    const keyDownHandler = event => {
+      // console.log('User pressed: ', event.key);
+
+      if (event.key === 'Enter') {
+        event.preventDefault();
+
+        // 👇️ your logic here
+        searchProducts();
+      }
+    };
+
+    document.addEventListener('keydown', keyDownHandler);
+
+    return () => {
+      document.removeEventListener('keydown', keyDownHandler);
+    };
+  }, []);
+
   return (
     <HeaderStyled>
       <div className={"left_side"}>
@@ -38,8 +70,13 @@ const Header = () => {
       </div>
 
       <div className={"Input"}>
-        {/*<BiSearchAlt/>*/}
-        <input type={"text"} placeholder={"Search for products and category"}/>
+        <input type={"text"}
+               value={searchQuery}
+               onChange={(e) => setSearchQuery(e.target.value)}
+               placeholder={"Search for products and category"}/>
+        <button onClick={() => searchProducts()}>
+          <BiSearchAlt/>
+        </button>
       </div>
 
       <div className={"right_side"}>

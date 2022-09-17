@@ -3,15 +3,16 @@ import * as api from '../api'
 
 export const getProducts = createAsyncThunk(
   "product/getProducts",
-  async (type, {rejectedWithValue}) => {
+  async (_, {rejectedWithValue}) => {
     try {
-      const response = await api.getProducts(type)
+      const response = await api.getProducts()
       return response.data;
     } catch (err) {
       return rejectedWithValue(err.response.data)
     }
   }
 )
+
 
 export const getProduct = createAsyncThunk(
   "product/getProduct",
@@ -31,7 +32,69 @@ export const createProduct = createAsyncThunk("product/createProduct",
     try {
       const response = await api.createProduct(formValue)
       toast.success("Product Created successfully")
-      navigate("/")
+      navigate("/dashboard")
+      return response.data
+    } catch (err) {
+      return rejectedWithValue(err.response.data)
+    }
+  }
+)
+
+export const getProductsByUser = createAsyncThunk("product/getProductsByUser",
+  async ({userId, toast}, {rejectedWithValue}) => {
+    try {
+      const response = await api.getProductsByUser(userId)
+      toast.success("Products Fetched successfully")
+      return response.data
+    } catch (err) {
+      return rejectedWithValue(err.response.data)
+    }
+  }
+)
+
+export const updateProduct = createAsyncThunk("product/updateProduct",
+  async ({id, formValue, toast, navigate}, {rejectedWithValue}) => {
+    try {
+      const response = await api.updateProduct({id, formValue})
+      toast.success("Product Updated Successfully")
+      navigate("/dashboard")
+      return response.data
+    } catch (err) {
+      return rejectedWithValue(err.response.data)
+    }
+  }
+)
+
+export const deleteProduct = createAsyncThunk("product/deleteProduct",
+  async ({id, toast}, {rejectedWithValue}) => {
+    try {
+      const response = await api.deleteProduct(id)
+      toast.success("Product Deleted Successfully")
+      return response.data
+    } catch (err) {
+      return rejectedWithValue(err.response.data)
+    }
+  }
+)
+
+export const getProductsBySearch = createAsyncThunk("product/getProductsBySearch",
+  async ({searchQuery, navigate}, {rejectedWithValue}) => {
+    try {
+      const response = await api.getProductsBySearch(searchQuery)
+      // navigate(`/product/search/${searchQuery}`)
+      return response.data
+    } catch (err) {
+      return rejectedWithValue(err.response.data)
+    }
+  }
+)
+
+export const getRelatedProducts = createAsyncThunk("product/getRelatedProducts",
+  async (category, {rejectedWithValue}) => {
+    console.log({category})
+    try {
+      const response = await api.getRelatedProducts(category)
+      console.log(response)
       return response.data
     } catch (err) {
       return rejectedWithValue(err.response.data)
@@ -45,6 +108,9 @@ const productSlice = createSlice({
   initialState: {
     product: {},
     products: [],
+    userProducts: [],
+    relatedProducts: [],
+    cartItems: [],
     error: "",
     loading: false,
   },
@@ -79,13 +145,66 @@ const productSlice = createSlice({
     },
     [createProduct.fulfilled]: (state, action) => {
       state.loading = false
-      console.log(action.payload)
       state.products = [action.payload]
     },
     [createProduct.rejected]: (state, action) => {
       state.loading = false
       state.error = action.payload.message()
     },
+
+    [getProductsByUser.pending]: (state, action) => {
+      state.loading = true
+    },
+    [getProductsByUser.fulfilled]: (state, action) => {
+      state.loading = false
+      state.userProducts = action.payload
+    },
+    [getProductsByUser.rejected]: (state, action) => {
+      state.loading = false
+      state.error = action.payload.message()
+    },
+
+    [deleteProduct.pending]: (state, action) => {
+      state.loading = true
+    },
+    [deleteProduct.fulfilled]: (state, action) => {
+      state.loading = false
+      // state.userProducts = action.payload
+      const {arg: {id}} = action.meta;
+      if (id) {
+        state.userProducts = state.userProducts.filter((product) => product._id !== id)
+        state.products = state.products.filter((product) => product._id !== id)
+      }
+    },
+    [deleteProduct.rejected]: (state, action) => {
+      state.loading = false
+      state.error = action.payload.message()
+    },
+
+    [getProductsBySearch.pending]: (state, action) => {
+      state.loading = true
+    },
+    [getProductsBySearch.fulfilled]: (state, action) => {
+      state.loading = false
+      state.products = action.payload
+    },
+    [getProductsBySearch.rejected]: (state, action) => {
+      state.loading = false
+      state.error = action.payload.message()
+    },
+
+    [getRelatedProducts.pending]: (state, action) => {
+      state.loading = true
+    },
+    [getRelatedProducts.fulfilled]: (state, action) => {
+      state.loading = false
+      state.relatedProducts = action.payload.filter((product) => product._id !== state.product._id)
+    },
+    [getRelatedProducts.rejected]: (state, action) => {
+      state.loading = false
+      state.error = action.payload.message()
+    },
+
 
   }
 })
