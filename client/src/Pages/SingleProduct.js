@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useParams, useNavigate, Link} from "react-router-dom";
 import {getProduct, getRelatedProducts} from "../redux/featuers/productSlice";
+import {addProductToCart} from '../redux/featuers/cartSlice'
 import {useDispatch, useSelector} from "react-redux";
 import {FaShoppingCart} from 'react-icons/fa'
 import {FcElectricity} from 'react-icons/fc'
@@ -11,6 +12,8 @@ import {AiFillStar} from 'react-icons/ai'
 import {MdLabel} from 'react-icons/md'
 import {Navigation} from "swiper";
 import {Swiper, SwiperSlide} from "swiper/react";
+import {toast} from 'react-toastify'
+import {addToCart} from "../redux/featuers/cartSlice";
 
 
 const excerpt = (str, count) => {
@@ -24,8 +27,18 @@ const SingleProduct = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const {id} = useParams();
+  const {user} = useSelector((state) => ({...state.auth}))
   const {product, relatedProducts, loading} = useSelector((state) => ({...state.product}))
+  const {cart} = useSelector((state) => ({...state.cart}))
+  // const {cartItems} = useSelector((state) => ({...state.cart}))
   const [category, setCategory] = useState(product.category)
+  const [productDetails, setProductDetails] = useState({
+    id: "",
+    quantity: 1,
+    price: 0,
+  })
+  const [userId, setUserId] = useState("")
+  const user_ = JSON.parse(localStorage.getItem("profile"))
 
 
   useEffect(() => {
@@ -35,112 +48,145 @@ const SingleProduct = () => {
   }, [id])
 
   useEffect(() => {
-    dispatch(getRelatedProducts(category))
-  }, [category])
-
-  useEffect(() => {
-    console.log("fetching")
     setCategory(product.category)
   }, [product])
 
+  useEffect(() => {
+    dispatch(getRelatedProducts(category))
+    productDetails.id = product._id
+    productDetails.price = Number(product.price)
+    if (user_) {
+      setUserId(user_.result._id)
+    }
+    if (user) {
+      setUserId(user.result._id)
+    }
+  }, [category, id, product])
+
+  // console.log(userId)
+  // console.log("productDetails", productDetails)
+  // console.log("cart", cart)
+
+  function AddToCart() {
+    // dispatch(addProductToCart({userId, productDetails, toast}))
+    console.log("addto cart called")
+    dispatch(addToCart({
+      id: product._id,
+      title: product.title,
+      imageFile: product.imageFile,
+      price: product.price,
+      description: product.description
+    }))
+  }
+
+
   return (
     <Main>
-        <div className={"left_div"}>
-          <div className={"image"}>
-            {
-              product.imageFile ?
-                <img src={process.env.REACT_APP_IMAGE_PATH + product.imageFile} alt={"prod"}/>
-                :
-                <img src={"/assets/product/no__product.png"} alt={"prod"}/>
-            }
-          </div>
-          <div className={"buttons"}>
-            <button><FaShoppingCart className={"icon"}/> ADD TO CART</button>
-            <button><GiElectric className={"icon1"}/> BUY NOW</button>
-          </div>
+      <div className={"left_div"}>
+        <div className={"image"}>
+          {
+            product.imageFile ?
+              <img src={process.env.REACT_APP_IMAGE_PATH + product.imageFile} alt={"prod"}/>
+              :
+              <img src={"/assets/product/no__product.png"} alt={"prod"}/>
+          }
         </div>
-
-        <div className={"right_div"}>
-          <>
-            <p className={"title"}>{product.title}</p>
-            <p className={"description"}>{product.description}</p>
-            <button>4.4 <AiFillStar className={"icon"}/></button>
-
-            <div className={"price"}>
-              <h4>₹{product.price}</h4>
-              <h5>{}</h5>
-              <h5>₹{Number(product.price)+Number(product.price*11.1/100)}</h5>
-              <h6>10% off</h6>
-            </div>
-
-            <div className={"offers"}>
-              <h1>Available Offer</h1>
-              <div className={"offer__p"}><MdLabel className={"icon"}/><p><span>Bank Offer </span>5% Cashback on
-                Flipkart
-                Axis Bank CardT&</p>
-              </div>
-              <div className={"offer__p"}><MdLabel className={"icon"}/><p><span>Partner Offer </span>Buy this product
-                and
-                get upto ₹500 off on
-                Flipkart
-                FurnitureKnow More</p></div>
-              <div className={"offer__p"}><MdLabel className={"icon"}/><p><span>Partner Offer </span>Purchase this
-                product &
-                win a surprise
-                cashback
-                coupon for The Big Billion Days Sale 2022Know More</p></div>
-              <div className={"offer__p"}><MdLabel className={"icon"}/><p><span>Partner Offer </span>Sign up for
-                Flipkart
-                Pay Later and get
-                Flipkart
-                Gift Card worth upto ₹1000*Know More</p></div>
-            </div>
-
-            <p className={"warranty"}>3 Years Warranty</p>
-          </>
-
-          <Swiper
-            slidesPerView={2}
-            spaceBetween={20}
-            pagination={{
-              // clickable: true,
+        <div className={"buttons"}>
+          <button onClick={() => {
+            AddToCart()
+            // dispatch(addToCart({id:product._id, title:product.title}))
+          }}><FaShoppingCart className={"icon"}/> ADD TO CART
+          </button>
+          <button
+            onClick={() => {
+              AddToCart()
+              navigate("/cart")
             }}
-            navigation={true}
-            modules={[Navigation]}
-            className="mySwiper"
-          >
-
-            {
-              relatedProducts?.map((prod, index) => {
-                  if (loading) return <h3>loading</h3>
-                  return (
-                    <SwiperSlide key={index}>
-                      <Link to={`/product/${prod._id}`}>
-                        <Product>
-                          <div className={"image"}>
-                            {
-                              prod.imageFile ?
-                                <img src={process.env.REACT_APP_IMAGE_PATH + prod.imageFile} alt={"prod"}/>
-                                :
-                                <img src={"/assets/product/no__product.png"} alt={"prod"}/>
-                            }
-                          </div>
-                          <h3>{prod.title}</h3>
-                          <h4>From ₹{prod.price}</h4>
-                          <label>
-                            {excerpt(prod.description, 25)}
-                          </label>
-                        </Product>
-                      </Link>
-                    </SwiperSlide>
-                  )
-                }
-              )
-            }
-
-          </Swiper>
-
+          ><GiElectric className={"icon1"}/> BUY NOW
+          </button>
         </div>
+      </div>
+
+      <div className={"right_div"}>
+        <>
+          <p className={"title"}>{product.title}</p>
+          <p className={"description"}>{product.description}</p>
+          <button>4.4 <AiFillStar className={"icon"}/></button>
+
+          <div className={"price"}>
+            <h4>₹{product.price}</h4>
+            <h5>₹{Number(product.price) + Number(product.price * 11.1 / 100)}</h5>
+            <h6>10% off</h6>
+          </div>
+
+          <div className={"offers"}>
+            <h1>Available Offer</h1>
+            <div className={"offer__p"}><MdLabel className={"icon"}/><p><span>Bank Offer </span>5% Cashback on
+              Flipkart
+              Axis Bank CardT&</p>
+            </div>
+            <div className={"offer__p"}><MdLabel className={"icon"}/><p><span>Partner Offer </span>Buy this product
+              and
+              get upto ₹500 off on
+              Flipkart
+              FurnitureKnow More</p></div>
+            <div className={"offer__p"}><MdLabel className={"icon"}/><p><span>Partner Offer </span>Purchase this
+              product &
+              win a surprise
+              cashback
+              coupon for The Big Billion Days Sale 2022Know More</p></div>
+            <div className={"offer__p"}><MdLabel className={"icon"}/><p><span>Partner Offer </span>Sign up for
+              Flipkart
+              Pay Later and get
+              Flipkart
+              Gift Card worth upto ₹1000*Know More</p></div>
+          </div>
+
+          <p className={"warranty"}>3 Years Warranty</p>
+        </>
+
+        <Swiper
+          slidesPerView={2}
+          spaceBetween={20}
+          pagination={{
+            // clickable: true,
+          }}
+          navigation={true}
+          modules={[Navigation]}
+          className="mySwiper"
+        >
+
+          {
+            relatedProducts?.map((prod, index) => {
+                if (loading) return <h3>loading</h3>
+                return (
+                  <SwiperSlide key={index}>
+                    <Link to={`/product/${prod._id}`}>
+                      <Product>
+                        <div className={"image"}>
+                          {
+                            prod.imageFile ?
+                              <img src={process.env.REACT_APP_IMAGE_PATH + prod.imageFile} alt={"prod"}/>
+                              :
+                              <img src={"/assets/product/no__product.png"} alt={"prod"}/>
+                          }
+                        </div>
+                        <h3>{prod.title}</h3>
+                        <h4>From ₹{prod.price}</h4>
+                        <label>
+                          {excerpt(prod.description, 25)}
+                        </label>
+                      </Product>
+                    </Link>
+                  </SwiperSlide>
+                )
+              }
+            )
+          }
+
+        </Swiper>
+
+      </div>
 
 
     </Main>
@@ -239,7 +285,7 @@ const Main = styled.div`
     background-color: #ffffff;
     padding: 2% 2% 0 0;
     //background-color: lightpink;
-    
+
     //overflow-y: scroll;
 
     .title {
@@ -366,7 +412,7 @@ const Main = styled.div`
         -webkit-align-items: center;
         align-items: center;
 
-        a{
+        a {
           text-decoration: none;
         }
 

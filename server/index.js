@@ -3,9 +3,11 @@ import mongoose from 'mongoose'
 import cors from 'cors'
 import morgan from 'morgan'
 import dotenv from 'dotenv'
+import bodyParser from "body-parser";
 import userRouter from './routes/user.js'
 import productRouter from './routes/product.js'
-import bodyParser from "body-parser";
+import orderRouter from './routes/orderRoute.js'
+import cartRouter from './routes/cartRoute.js'
 
 const app = express()
 dotenv.config()
@@ -20,6 +22,8 @@ app.use(bodyParser.json())
 app.use('/public', express.static('public'))
 app.use('/users', userRouter);
 app.use('/product', productRouter)
+app.use('/order', orderRouter)
+app.use('/cart', cartRouter)
 // app.use("/", (req, res) => {
 //   res.send("Welcome to E-Commerce Site")
 // })

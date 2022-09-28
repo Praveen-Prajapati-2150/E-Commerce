@@ -110,7 +110,6 @@ const productSlice = createSlice({
     products: [],
     userProducts: [],
     relatedProducts: [],
-    cartItems: [],
     error: "",
     loading: false,
   },
@@ -204,7 +203,6 @@ const productSlice = createSlice({
       state.loading = false
       state.error = action.payload.message()
     },
-
 
   }
 })

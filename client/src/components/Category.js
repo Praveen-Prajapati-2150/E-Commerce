@@ -76,10 +76,10 @@ const Category = () => {
                             <img src={"/assets/product/no__product.png"} alt={"prod"}/>
                         }
                       </div>
-                      <h3>{prod.title}</h3>
+                      <h3>{excerpt(prod.title,20)}</h3>
                       <h4>From ₹{prod.price}</h4>
                       <label>
-                        {excerpt(prod.description, 25)}
+                        {excerpt(prod.description, 30)}
                       </label>
                     </Product>
                   </Link>

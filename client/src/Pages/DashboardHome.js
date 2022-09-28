@@ -55,10 +55,10 @@ const DashboardHome = () => {
                   </div>
                 </Link>
 
-                <h3>{product.title}</h3>
+                <h3>{excerpt(product.title, 20)}</h3>
                 <h4>From ₹{product.price}</h4>
                 <label>
-                  {excerpt(product.description, 25)}
+                  {excerpt(product.description, 30)}
                 </label>
                 <div className={"buttons"} onClick={(e) => e.stopPropagation()}>
                   <Link to={`/dashboard/update_tour/${product._id}`}>
@@ -90,7 +90,7 @@ const Main = styled.div`
   align-items: flex-start;
   justify-content: flex-start;
   flex-wrap: wrap;
-  padding: 2%;
+  padding: 2% 2% 6% 2%;
 
   a {
     text-decoration: none;

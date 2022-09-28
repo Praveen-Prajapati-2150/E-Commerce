@@ -36,3 +36,5 @@ export const updateProduct = ({id, formValue}) => API.patch(`/product/${id}`, fo
 })
 export const deleteProduct = (productId) => API.delete(`/product/${productId}`)
 
+export const addToCart = ({userId,productDetails}) => API.post(`/cart/addToCart/${userId}`, productDetails)
+

@@ -66,10 +66,8 @@ export const signup = async (req, res) => {
         expiresIn: '1h'
       }
     )
-
     res.status(201).json({result, token})
     // res.cookie("access token", token).status(201).json({result, token})
-
 
   } catch (err) {
     res.status(500).json({message: "Something went wrong"})

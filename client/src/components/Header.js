@@ -14,11 +14,37 @@ import {getProductsBySearch} from "../redux/featuers/productSlice";
 const Header = () => {
   const {user} = useSelector((state) => ({...state.auth}))
   const [searchQuery, setSearchQuery] = useState("")
+  // const cart = useSelector((state) => ({...state.cart}))
+  const cart = useSelector((state) => state.cart.cart)
+
+  const [cart_, setCart_] = useState(cart)
+  console.log("cart", cart)
+  // console.log("cart_", cart_)
+  console.log(typeof cart)
+
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const token = user?.token
+
+  const getTotalCartItemQuantity = () => {
+    let total = 0;
+    {
+      cart?.map((item) => {
+        // console.log(item)
+        total += item.quantity
+      })
+    }
+
+    return total
+  }
+
+  console.log(getTotalCartItemQuantity())
+
+  useEffect(() => {
+    getTotalCartItemQuantity()
+  }, [cart, cart_])
 
   if (token) {
     const decodedToken = decode(token);
@@ -101,6 +127,7 @@ const Header = () => {
           <Link to={"/cart"}>
             <FaShoppingCart/>
             <p>Cart</p>
+            <p>{getTotalCartItemQuantity() || 0}</p>
           </Link>
         }
       </div>
