@@ -11,13 +11,14 @@ const Links = [
   }, {
     name: "Add Product",
     path: "/dashboard/add_product"
-  }, {
-    name: "Update Products",
-    path: "/dashboard/:id"
-  }, {
-    name: "Delete Products",
-    path: "/dashboard/add_product"
   },
+  // {
+  //   name: "Update Products",
+  //   path: "/dashboard/:id"
+  // }, {
+  //   name: "Delete Products",
+  //   path: "/dashboard/add_product"
+  // },
 ]
 
 

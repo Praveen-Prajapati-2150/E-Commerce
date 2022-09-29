@@ -26,10 +26,10 @@ const AddProduct = () => {
 
   console.log(productData)
 
-  const [title, setTitle] = useState("dummy text")
-  const [description, setDescription] = useState("dummy text dummy text dummy text")
-  const [price, setPrice] = useState(123)
-  const [category, setCategory] = useState("Home")
+  const [title, setTitle] = useState("")
+  const [description, setDescription] = useState("")
+  const [price, setPrice] = useState()
+  const [category, setCategory] = useState("")
   const [imageFile, setImageFile] = useState(null)
 
   const {id} = useParams()
@@ -44,7 +44,7 @@ const AddProduct = () => {
       setCategory(productData.category)
       // setImageFile(productData.imageFile)
     }
-  }, [productData])
+  }, [productData, title, description, price, category])
 
 
   useEffect(() => {
@@ -62,6 +62,9 @@ const AddProduct = () => {
   const handleSubmit = (e) => {
     console.log("called")
     e.preventDefault()
+    if (!title || !description || !price || !category){
+      window.alert("field's are missing")
+    }
     if (title && description && price && category) {
       const formValue = new FormData();
       if (imageFile) {
@@ -75,6 +78,7 @@ const AddProduct = () => {
       formValue.append('creator', userId)
 
       if (!id) {
+        console.log("Create Project")
         dispatch(createProduct({formValue, toast, navigate}))
       } else {
         console.log("update")
@@ -105,9 +109,8 @@ const AddProduct = () => {
 
       <label>Category</label>
       <select value={category} name={"category"} onChange={(e) => setCategory(e.target.value)}>
-        <option selected disabled>Category</option>
+        <option value="" disabled selected hidden >Category</option>`
         <option value={"Grocery"}>Grocery</option>
-        <option value={"Mobiles"}>Mobiles</option>
         <option value={"Fashion"}>Fashion</option>
         <option value={"Electronics"}>Electronics</option>
         <option value={"Home"}>Home</option>

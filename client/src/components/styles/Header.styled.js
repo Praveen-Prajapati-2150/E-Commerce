@@ -3,8 +3,6 @@ import styled from 'styled-components'
 
 export const HeaderStyled = styled.header`
           height: 10vh;
-          //width: 100%;
-          padding: 8px 8px;
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -12,6 +10,10 @@ export const HeaderStyled = styled.header`
             // background-color: ${(props) => props.bg};
           background-color: ${({theme}) => theme.colors.header};
           padding: 0 20px;
+          position: sticky;
+          top: 0px;
+          left: 0;
+          z-index: 100;
 
           .left_side {
             display: flex;
@@ -42,8 +44,8 @@ export const HeaderStyled = styled.header`
               margin: 0 0 0 0;
               border-radius: 4px;
             }
-            
-            button{
+
+            button {
               border: none;
               outline: none;
               color: darkblue;
@@ -55,8 +57,8 @@ export const HeaderStyled = styled.header`
               display: flex;
               align-items: center;
               justify-content: center;
-              
-              &:hover{
+
+              &:hover {
                 color: green;
               }
             }
@@ -76,6 +78,17 @@ export const HeaderStyled = styled.header`
 
             p {
               padding-left: 4px;
+            }
+
+            .cart_no {
+              background-color: orangered;
+              color: white;
+              border-radius: 50px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              padding: 0 4px;
+              margin-left: 4px;
             }
 
           }

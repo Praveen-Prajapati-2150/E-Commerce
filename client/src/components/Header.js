@@ -69,22 +69,22 @@ const Header = () => {
 
 
   useEffect(() => {
-    const keyDownHandler = event => {
-      // console.log('User pressed: ', event.key);
-
-      if (event.key === 'Enter') {
-        event.preventDefault();
-
-        // 👇️ your logic here
-        searchProducts();
-      }
-    };
-
-    document.addEventListener('keydown', keyDownHandler);
-
-    return () => {
-      document.removeEventListener('keydown', keyDownHandler);
-    };
+    // const keyDownHandler = event => {
+    //   // console.log('User pressed: ', event.key);
+    //
+    //   if (event.key === 'Enter') {
+    //     event.preventDefault();
+    //
+    //     // 👇️ your logic here
+    //     searchProducts();
+    //   }
+    // };
+    //
+    // document.addEventListener('keydown', keyDownHandler);
+    //
+    // return () => {
+    //   document.removeEventListener('keydown', keyDownHandler);
+    // };
   }, []);
 
   return (
@@ -127,7 +127,7 @@ const Header = () => {
           <Link to={"/cart"}>
             <FaShoppingCart/>
             <p>Cart</p>
-            <p>{getTotalCartItemQuantity() || 0}</p>
+            <p className={"cart_no"}>{getTotalCartItemQuantity() || 0}</p>
           </Link>
         }
       </div>

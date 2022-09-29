@@ -19,7 +19,7 @@ export const signIn = (formValue) => API.post("/users/signin", formValue)
 export const signUp = (formValue) => API.post("/users/signup", formValue)
 // export const getProductsBySearch = (searchQuery) => API.get(`/product/search?searchQuery=${searchQuery}`)
 export const getProductsBySearch = (params) => API.get(`/product/search/${params}`)
-export const getRelatedProducts = (category) => API.get(`/product/relatedProducts/${category}`, )
+export const getRelatedProducts = (category) => API.get(`/product/relatedProducts/${category}`)
 
 export const getProducts = () => API.get(`/product`)
 export const getProduct = (id) => API.get(`product/${id}`)
@@ -38,3 +38,4 @@ export const deleteProduct = (productId) => API.delete(`/product/${productId}`)
 
 export const addToCart = ({userId,productDetails}) => API.post(`/cart/addToCart/${userId}`, productDetails)
 
+export const getCategoryRelatedProducts = ({category}) => API.get(`/product/category/${category}`)

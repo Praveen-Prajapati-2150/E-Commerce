@@ -17,6 +17,9 @@ import DashboardHome from "./Pages/DashboardHome";
 import AddProduct from './Pages/AddProduct'
 import SearchProducts from "./Pages/SearchProducts";
 import Cart from './Pages/Cart'
+import PrivateRoute from "./components/PrivateRoute";
+import NotFound from "./Pages/NotFound";
+import CategoryProducts from "./Pages/CategoryProducts";
 
 
 const theme = {
@@ -56,16 +59,22 @@ function App() {
           <Routes>
             <Route path={"/"} element={<Home/>}/>
             <Route path={"/product/:id"} element={<SingleProduct/>}/>
+            <Route path={"/product/category/:category"} element={<CategoryProducts/>}/>
             <Route path={"/login"} element={<Login/>}/>
             <Route path={"/signup"} element={<Signup/>}/>
             <Route path={"/cart"} element={<Cart/>}/>
             <Route path={`/product/search/:searchQuery`} element={<SearchProducts/>}/>
 
-            <Route path={"/dashboard"} element={<Dashboard/>}>
+            <Route path={"/dashboard"} element={
+              <PrivateRoute>
+                <Dashboard/>
+              </PrivateRoute>
+            }>
               <Route path={"/dashboard"} element={<DashboardHome/>}/>
               <Route path={"/dashboard/add_product"} element={<AddProduct/>}/>
               <Route path={"/dashboard/update_tour/:id"} element={<AddProduct/>}/>
             </Route>
+            <Route path={"*"} element={<NotFound/>}/>
           </Routes>
 
         </Appp>

@@ -1,5 +1,6 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import * as api from '../api'
+import category from "../../components/Category";
 
 export const getProducts = createAsyncThunk(
   "product/getProducts",
@@ -44,7 +45,7 @@ export const getProductsByUser = createAsyncThunk("product/getProductsByUser",
   async ({userId, toast}, {rejectedWithValue}) => {
     try {
       const response = await api.getProductsByUser(userId)
-      toast.success("Products Fetched successfully")
+      // toast.success("Products Fetched successfully")
       return response.data
     } catch (err) {
       return rejectedWithValue(err.response.data)
@@ -102,6 +103,18 @@ export const getRelatedProducts = createAsyncThunk("product/getRelatedProducts",
   }
 )
 
+export const getCategoryRelatedProducts = createAsyncThunk("product/getCategoryRelatedProducts",
+  async (category, {rejectedWithValue}) => {
+    try {
+      const response = await api.getCategoryRelatedProducts(category)
+      console.log(response)
+      return response.data
+    } catch (err) {
+      return rejectedWithValue(err.response.data)
+    }
+  })
+
+
 
 const productSlice = createSlice({
   name: "product",
@@ -110,6 +123,7 @@ const productSlice = createSlice({
     products: [],
     userProducts: [],
     relatedProducts: [],
+    categoryProducts: [],
     error: "",
     loading: false,
   },
@@ -200,6 +214,18 @@ const productSlice = createSlice({
       state.relatedProducts = action.payload.filter((product) => product._id !== state.product._id)
     },
     [getRelatedProducts.rejected]: (state, action) => {
+      state.loading = false
+      state.error = action.payload.message()
+    },
+
+    [getCategoryRelatedProducts.pending]: (state, action) => {
+      state.loading = true
+    },
+    [getCategoryRelatedProducts.fulfilled]: (state, action) => {
+      state.loading = false
+      state.categoryProducts = action.payload
+    },
+    [getCategoryRelatedProducts.rejected]: (state, action) => {
       state.loading = false
       state.error = action.payload.message()
     },

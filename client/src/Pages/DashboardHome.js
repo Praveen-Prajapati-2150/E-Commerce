@@ -37,6 +37,11 @@ const DashboardHome = () => {
       }
     }
 
+    if (userProducts.length === 0) {
+      return (
+        <p>You have not added any Product yet.</p>
+      )
+    }
 
     return (
       <Main>
@@ -62,9 +67,9 @@ const DashboardHome = () => {
                 </label>
                 <div className={"buttons"} onClick={(e) => e.stopPropagation()}>
                   <Link to={`/dashboard/update_tour/${product._id}`}>
-                    <button><GrUpdate/></button>
+                    <button title="Update Product"><GrUpdate/></button>
                   </Link>
-                  <button onClick={(e) => {
+                  <button title="Delete Product" onClick={(e) => {
                     e.stopPropagation()
                     handleDelete(product._id)
                   }}>
@@ -104,8 +109,9 @@ const Product = styled.div`
   justify-content: center;
   text-decoration: none;
   background-color: white;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3), -2px -2px 1px rgba(0, 0, 0, 0.1);
-  //background-color: lightpink;
+  border-radius: 4px;
+  box-shadow: 2px 2px 5px #dbdbdb,
+    -2px -2px 5px #ffffff;
   margin: 0 25px 25px 0;
 
   .image {

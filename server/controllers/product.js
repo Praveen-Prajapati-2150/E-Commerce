@@ -115,6 +115,17 @@ export const getRelatedProducts = async (req, res) => {
   }
 }
 
+export const getCategoryRelatedProducts = async (req, res) => {
+  const category = req.params.relatedProducts
+  console.log("category", category)
+  try {
+    const Products = await ProductModel.find({category: category})
+    res.status(200).json(Products)
+  } catch (err) {
+    res.status(404).json({message: "Something went wrong"})
+  }
+}
+
 
 
 

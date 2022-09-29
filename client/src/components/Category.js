@@ -20,7 +20,7 @@ const excerpt = (str, count) => {
 };
 
 
-const Category = () => {
+const Category = ({category}) => {
   const {products, loading, error} = useSelector((state) => ({...state.product}))
   const dispatch = useDispatch()
 
@@ -37,60 +37,59 @@ const Category = () => {
 
   return (
     <CategoryList>
+      <div className={"container"}>
+        <div className={"heading"}>
+          <div>
+            <h2>Best of {category}</h2>
+            <p>Best of {category}</p>
+          </div>
+          <div>
+            <Link to={`/product/category/${category}`}>
+              <Button>View All</Button>
+            </Link>
+          </div>
+        </div>
 
-      <div className={"heading"}>
-        <div>
-          <h2>Best of Electronics</h2>
-          <p>Best of Electronics</p>
-        </div>
-        <div>
-          <Link to={'/product/Best_of_Electronics'}>
-            <Button>View All</Button>
-          </Link>
-        </div>
+        <Swiper
+          slidesPerView={5}
+          spaceBetween={20}
+          navigation={true}
+          modules={[Navigation]}
+          className="mySwiper"
+        >
+
+          {
+            products?.map((prod, index) => {
+                if (loading) return <h3>loading</h3>
+                if (prod.category === category)
+                  return (
+                    <SwiperSlide key={index}>
+                      <Link to={`/product/${prod._id}`}>
+                        <Product>
+                          <div className={"image"}>
+                            {
+                              prod.imageFile ?
+                                <img src={process.env.REACT_APP_IMAGE_PATH + prod.imageFile} alt={"prod"}/>
+                                :
+                                <img src={"/assets/product/no__product.png"} alt={"prod"}/>
+                            }
+                          </div>
+                          <h3>{excerpt(prod.title, 20)}</h3>
+                          <h4>From ₹{prod.price}</h4>
+                          <label>
+                            {excerpt(prod.description, 25)}
+                          </label>
+                        </Product>
+                      </Link>
+                    </SwiperSlide>
+                  )
+              }
+            )
+          }
+
+        </Swiper>
+
       </div>
-
-      <Swiper
-        slidesPerView={6}
-        spaceBetween={20}
-        pagination={{
-          // clickable: true,
-        }}
-        navigation={true}
-        modules={[Navigation]}
-        className="mySwiper"
-      >
-
-        {
-          products?.map((prod, index) => {
-              if (loading) return <h3>loading</h3>
-              return (
-                <SwiperSlide key={index}>
-                  <Link to={`/product/${prod._id}`}>
-                    <Product>
-                      <div className={"image"}>
-                        {
-                          prod.imageFile ?
-                            <img src={process.env.REACT_APP_IMAGE_PATH + prod.imageFile} alt={"prod"}/>
-                            :
-                            <img src={"/assets/product/no__product.png"} alt={"prod"}/>
-                        }
-                      </div>
-                      <h3>{excerpt(prod.title,20)}</h3>
-                      <h4>From ₹{prod.price}</h4>
-                      <label>
-                        {excerpt(prod.description, 30)}
-                      </label>
-                    </Product>
-                  </Link>
-                </SwiperSlide>
-              )
-            }
-          )
-        }
-
-      </Swiper>
-
     </CategoryList>
   );
 };
@@ -100,114 +99,116 @@ export default Category;
 
 const CategoryList = styled.div`
   //height: 300px;
+  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  padding: 10px;
-  background-color: #fff;
-  //background-color: #e58c8c;
-  margin: 20px 0;
+  align-items: flex-start;
+  padding: 0 10px;
+  //background-color: #d95454;
+  margin: 30px 0;
   border-radius: 2px;
 
-  &::-webkit-scrollbar {
-    width: 0;
-  }
+  //box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
 
-  &::-webkit-scrollbar-track {
-    background-color: transparent;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: transparent;
-  }
-
-  .heading {
-    height: 20%;
+  .container {
+    height: 100%;
     width: 100%;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #ffffff;
-    padding: 15px 25px;
-    border-bottom: 1px solid #dedede;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: 4px;
+    box-shadow: 2px 2px 5px #dbdbdb,
+      -2px -2px 5px #ffffff;
 
-    p {
-      color: #8f8f8f;
-    }
-
-    h2 {
-      font-weight: 600;
-    }
-  }
-
-  .swiper {
-    width: 100%;
-    height: 80%;
-    background-color: #ffffff;
-    padding: 20px 20px;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-
-    .swiper-slide {
-      text-align: center;
-      font-size: 18px;
-      text-decoration: none;
-      //width: 300px;
-      //background: #345be0;
-      /* Center slide text vertically */
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: -webkit-flex;
+    .heading {
+      height: 20%;
+      width: 100%;
       display: flex;
-      -webkit-box-pack: center;
-      -ms-flex-pack: center;
-      -webkit-justify-content: center;
-      justify-content: center;
-      -webkit-box-align: center;
-      -ms-flex-align: center;
-      -webkit-align-items: center;
       align-items: center;
-      
-      a{
-        text-decoration: none;
+      justify-content: space-between;
+      background-color: #ffffff;
+      padding: 15px 25px;
+      border-bottom: 1px solid #dedede;
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+      //box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+
+      p {
+        color: #8f8f8f;
       }
 
-      .swiper-slide img {
-        display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+      h2 {
+        font-weight: 600;
+      }
+    }
+
+    .swiper {
+      width: 100%;
+      height: 80%;
+      background-color: #ffffff;
+      padding: 20px 20px;
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
+
+      .swiper-slide {
+        text-align: center;
+        font-size: 18px;
         text-decoration: none;
-        //background-color: green;
+        //width: 300px;
+        //background: #345be0;
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+
+        a {
+          text-decoration: none;
+        }
+
+        .swiper-slide img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          text-decoration: none;
+        }
       }
     }
   }
+
 `
 const Product = styled.div`
-  padding: 10px 10px;
+  //padding: 10px 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  text-decoration: none;
   //background-color: lightpink;
+  text-decoration: none;
+  //margin: 5px 5px 0 0;
 
   .image {
     //height: auto;
-    max-width: 300px;
+    //max-width: 300px;
     max-height: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
     //background-color: lightgreen;
-    
-    img{
-      max-width: 300px;
+
+    img {
+      //max-width: 90px;
+      width: auto;
       max-height: 200px;
-      //width: 100%;
-      //height: 100%;
     }
 
     &:hover {
@@ -219,6 +220,7 @@ const Product = styled.div`
     text-align: center;
     white-space: nowrap;
     text-decoration: none;
+    color: black;
   }
 
   h3 {
@@ -229,7 +231,7 @@ const Product = styled.div`
   }
 
   h4 {
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     color: #5db45d;
     font-weight: 400;
     padding: 5px 0 0 0;

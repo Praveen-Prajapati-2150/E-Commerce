@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import {AiOutlinePlusCircle} from "react-icons/ai";
 import {AiOutlineMinusCircle} from "react-icons/ai";
 import styled from "styled-components";
-import { incrementQuantity, decrementQuantity, removeItem} from '../redux/featuers/cartSlice'
+import {incrementQuantity, decrementQuantity, removeItem} from '../redux/featuers/cartSlice'
 
 const excerpt = (str, count) => {
   if (str.length > count) {
@@ -30,7 +30,11 @@ const Cart = () => {
   }
 
   if (cart.length === 0) {
-    return <h1>your cart is empty</h1>
+    return (
+      <div style={{height: "100vh", width: "100vw", display: "flex", alignItems: "center", justifyContent: "center"}}>
+        <p>Your cart is empty</p>
+      </div>
+    )
   }
 
   return (
@@ -55,7 +59,7 @@ const Cart = () => {
                 <div className={"product_detail"}>
                   <h3>{excerpt(product.title, 60)}</h3>
                   <div className={"price"}>
-                    <h3>₹{Number(product.price) + Number(product.price * 11.1 / 100)}</h3>
+                    <h3>₹{Math.round(Number(product.price) + Number(product.price * 11.1 / 100))}</h3>
                     <h4>₹{product.price}</h4>
                     <p>10% off</p>
                     <p>1 coupon & 6 offers applied</p>
@@ -101,7 +105,7 @@ const Cart = () => {
           </div>
           <div>
             <p>5% Discount</p>
-            <p>-₹{getTotal().totalPrice * 5/100}</p>
+            <p>-₹{Math.round(getTotal().totalPrice * 5 / 100)}</p>
           </div>
           <div>
             <p>Coupons for you</p>
@@ -114,10 +118,10 @@ const Cart = () => {
         </div>
         <div className={"total"}>
           <p>Total Amount</p>
-          <p>₹{getTotal().totalPrice - getTotal().totalPrice * 5/100 -150}</p>
+          <p>₹{Math.round(getTotal().totalPrice - getTotal().totalPrice * 5 / 100 - 150)}</p>
         </div>
         <div className={"save"}>
-          <p>You will save ₹{getTotal().totalPrice * 5/100+150} on this order</p>
+          <p>You will save ₹{Math.round(getTotal().totalPrice * 5 / 100 + 150)} on this order</p>
         </div>
       </CheckoutDiv>
 
@@ -145,8 +149,10 @@ const ProductDiv = styled.div`
   width: 70%;
   height: auto;
   background-color: white;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3), -2px -2px 1px rgba(0, 0, 0, 0.1);
   padding: 1%;
+  border-radius: 4px;
+  box-shadow:  2px 2px 5px #dbdbdb,
+    -2px -2px 5px #ffffff;
 }
 `
 
@@ -155,8 +161,10 @@ const CheckoutDiv = styled.div`
   width: 28%;
   height: 10%;
   background-color: white;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3), -2px -2px 1px rgba(0, 0, 0, 0.1);
   padding: 1%;
+  border-radius: 4px;
+  box-shadow:  2px 2px 5px #dbdbdb,
+    -2px -2px 5px #ffffff;
 
   .header {
     p {

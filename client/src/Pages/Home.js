@@ -6,6 +6,32 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import {Autoplay, Pagination, Navigation} from "swiper";
 import CategoryProducts from "../components/Category";
+import {Link} from 'react-router-dom'
+
+const categories = [
+  {
+    src: "/assets/home/fashion.webp",
+    label: "Fashion"
+  }, {
+    src: "/assets/home/home.webp",
+    label: "Home"
+  }, {
+    src: "/assets/home/electronics.webp",
+    label: "Electronics"
+  }, {
+    src: "/assets/home/appliances.webp",
+    label: "Appliances"
+  }, {
+    src: "/assets/home/travel.webp",
+    label: "Travel"
+  }, {
+    src: "/assets/home/beauty.webp",
+    label: "Beauty"
+  }, {
+    src: "/assets/home/grocery.webp",
+    label: "Grocery"
+  },
+]
 
 const Home = () => {
 
@@ -14,25 +40,23 @@ const Home = () => {
 
       <Category>
         {
-          [...Array(10)].map((item, index) => {
+          categories?.map((item, index) => {
             return (
-              <Box key={index}>
-                <img src={"/assets/home/category.webp"} alt={"img"}/>
-                <label>Mobiles</label>
+              <Box>
+                <Link key={index} to={`/product/category/${item.label}`}>
+                  <img src={item.src} alt={"img"}/>
+                </Link>
+                <label>{item.label}</label>
               </Box>
             )
           })
         }
-
       </Category>
 
       <Swiper
         slidesPerView={1}
         spaceBetween={30}
         loop={true}
-        // pagination={{
-        //   clickable: true,
-        // }}
         autoplay={{
           delay: 2500,
           disableOnInteraction: false,
@@ -49,8 +73,10 @@ const Home = () => {
         </SwiperSlide>
       </Swiper>
 
-      <CategoryProducts />
-      {/*<CategoryProducts type={"Home"}/>*/}
+      {/*<CategoryProducts />*/}
+      <CategoryProducts category={"Electronics"}/>
+      <CategoryProducts category={"Home"}/>
+      <CategoryProducts category={"Fashion"}/>
 
 
     </Section>
@@ -118,18 +144,26 @@ const Box = styled.div`
   height: 80%;
   width: auto;
   padding: 10px;
-  margin: 0 10px;
+  margin: 0 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
   cursor: pointer;
+  text-decoration: none;
 
+  a{
+    text-decoration: none;
+  }
   //background: lightpink;
 
   img {
     height: 90%;
-    width: auto;
+    width: 70px;
+
+    &:hover {
+      transform: scale(1.02);
+    }
   }
 `

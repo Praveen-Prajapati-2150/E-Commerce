@@ -1,9 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {Link} from "react-router-dom";
+import category from "../components/Category";
+import {Link, useParams} from "react-router-dom";
+import {getCategoryRelatedProducts} from "../redux/featuers/productSlice";
+import styled from 'styled-components'
 import {GrUpdate} from "react-icons/gr";
 import {MdDelete} from "react-icons/md";
-import styled from "styled-components";
 
 const excerpt = (str, count) => {
   if (str.length > count) {
@@ -12,14 +14,22 @@ const excerpt = (str, count) => {
   return str;
 };
 
-const SearchProducts = () => {
-  const {products} = useSelector((state) => ({...state.product}))
+const CategoryProducts = () => {
   const dispatch = useDispatch()
+  const category = useParams()
+  const {categoryProducts, loading, error} = useSelector((state) => ({...state.product}))
+
+  useEffect(() => {
+    dispatch(getCategoryRelatedProducts(category))
+  }, [category])
+
+  console.log("cat", category)
+  console.log("categoryProducts", categoryProducts)
 
   return (
     <Main>
       {
-        products?.map((product, index) => {
+        categoryProducts?.map((product, index) => {
           return (
             <Product key={index}>
               <Link key={index} to={`/product/${product._id}`}>
@@ -38,50 +48,35 @@ const SearchProducts = () => {
               <label>
                 {excerpt(product.description, 30)}
               </label>
-              {/*  <div className={"buttons"} onClick={(e) => e.stopPropagation()}>*/}
-              {/*    <Link to={`/dashboard/update_tour/${product._id}`}>*/}
-              {/*      <button><GrUpdate/></button>*/}
-              {/*    </Link>*/}
-              {/*    <button*/}
-              {/*    <MdDelete/>*/}
-              {/*  </button>*/}
-              {/*</div>*/}
             </Product>
           )
         })
       }
-
     </Main>
-
   );
 };
 
-export default SearchProducts;
+export default CategoryProducts;
 
 
 const Main = styled.div`
   height: 100%;
   width: 100%;
   display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
   flex-wrap: wrap;
   padding: 2%;
-
-  a {
-    text-decoration: none;
-  }
 `
 
 const Product = styled.div`
-  padding: 15px 15px;
+  padding: 10px 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-decoration: none;
   background-color: white;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1), -2px -2px 1px rgba(0, 0, 0, 0.05);
-  //background-color: lightpink;
+  border-radius: 4px;
+  box-shadow: 2px 2px 5px #dbdbdb,
+    -2px -2px 5px #ffffff;
   margin: 0 25px 25px 0;
 
   .image {

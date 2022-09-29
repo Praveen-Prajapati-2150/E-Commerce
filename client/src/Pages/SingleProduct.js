@@ -66,10 +66,12 @@ const SingleProduct = () => {
   // console.log(userId)
   // console.log("productDetails", productDetails)
   // console.log("cart", cart)
+  console.log("relatedProducts", relatedProducts)
+  console.log("relatedProducts.length", relatedProducts.length)
 
   function AddToCart() {
     // dispatch(addProductToCart({userId, productDetails, toast}))
-    console.log("addto cart called")
+    console.log("add to cart called")
     dispatch(addToCart({
       id: product._id,
       title: product.title,
@@ -94,7 +96,6 @@ const SingleProduct = () => {
         <div className={"buttons"}>
           <button onClick={() => {
             AddToCart()
-            // dispatch(addToCart({id:product._id, title:product.title}))
           }}><FaShoppingCart className={"icon"}/> ADD TO CART
           </button>
           <button
@@ -110,12 +111,11 @@ const SingleProduct = () => {
       <div className={"right_div"}>
         <>
           <p className={"title"}>{product.title}</p>
-          <p className={"description"}>{product.description}</p>
           <button>4.4 <AiFillStar className={"icon"}/></button>
 
           <div className={"price"}>
             <h4>₹{product.price}</h4>
-            <h5>₹{Number(product.price) + Number(product.price * 11.1 / 100)}</h5>
+            <h5>₹{Math.round(Number(product.price) + Number(product.price * 11.1 / 100))}</h5>
             <h6>10% off</h6>
           </div>
 
@@ -143,48 +143,55 @@ const SingleProduct = () => {
           </div>
 
           <p className={"warranty"}>3 Years Warranty</p>
+          <div className={"description"}>
+            <p>Description</p>
+            <p className={"description_"}>{product.description}</p>
+          </div>
+
         </>
 
-        <Swiper
-          slidesPerView={2}
-          spaceBetween={20}
-          pagination={{
-            // clickable: true,
-          }}
-          navigation={true}
-          modules={[Navigation]}
-          className="mySwiper"
-        >
-
-          {
-            relatedProducts?.map((prod, index) => {
-                if (loading) return <h3>loading</h3>
-                return (
-                  <SwiperSlide key={index}>
-                    <Link to={`/product/${prod._id}`}>
-                      <Product>
-                        <div className={"image"}>
-                          {
-                            prod.imageFile ?
-                              <img src={process.env.REACT_APP_IMAGE_PATH + prod.imageFile} alt={"prod"}/>
-                              :
-                              <img src={"/assets/product/no__product.png"} alt={"prod"}/>
-                          }
-                        </div>
-                        <h3>{prod.title}</h3>
-                        <h4>From ₹{prod.price}</h4>
-                        <label>
-                          {excerpt(prod.description, 25)}
-                        </label>
-                      </Product>
-                    </Link>
-                  </SwiperSlide>
+        {
+          relatedProducts.length !== 0 ?
+            <Swiper
+              slidesPerView={2}
+              spaceBetween={20}
+              navigation={true}
+              modules={[Navigation]}
+              className="mySwiper"
+            >
+              {
+                relatedProducts?.map((prod, index) => {
+                    if (loading) return <h3>loading</h3>
+                    return (
+                      <SwiperSlide key={index}>
+                        <Link to={`/product/${prod._id}`}>
+                          <Product>
+                            <div className={"image"}>
+                              {
+                                prod.imageFile ?
+                                  <img src={process.env.REACT_APP_IMAGE_PATH + prod.imageFile} alt={"prod"}/>
+                                  :
+                                  <img src={"/assets/product/no__product.png"} alt={"prod"}/>
+                              }
+                            </div>
+                            <h3>{excerpt(prod.title, 20)}</h3>
+                            <h4>From ₹{Math.round(prod.price)}</h4>
+                            <label>
+                              {excerpt(prod.description, 25)}
+                            </label>
+                          </Product>
+                        </Link>
+                      </SwiperSlide>
+                    )
+                  }
                 )
-              }
-            )
-          }
 
-        </Swiper>
+              }
+
+            </Swiper>
+            :
+            null
+        }
 
       </div>
 
@@ -197,37 +204,36 @@ export default SingleProduct;
 
 
 const Main = styled.div`
-  //background-color: lightpink;
-  //height: auto;
   width: 100%;
   display: flex;
   padding: 0 5% 5% 5%;
-  //overflow-y: scroll;
-  //align-items: center;
-  //justify-content: center;
-  //overflow: hidden;
 
   .left_div {
     width: 45%;
-    height: 100%;
-    //background-color: lightgreen;
+    height: auto;
     display: flex;
     align-items: center;
     flex-direction: column;
-    padding: 2% 0%;
-    //position: absolute;
-
+    padding: 2% 0;
 
     .image {
-      width: 100%;
-      height: auto;
+      width: 500px;
+      height: 450px;
       display: flex;
       align-items: center;
       justify-content: center;
       background-color: white;
+      //background-color: lightgray;
 
       img {
-        width: 70%;
+        //width: auto;
+        //max-width: 450px;
+        //height: 400px;
+        height: auto;
+        width: auto;
+        //width: 300px;
+        //height: 500px;
+        //height: 500px;
       }
     }
 
@@ -289,13 +295,28 @@ const Main = styled.div`
     //overflow-y: scroll;
 
     .title {
-      font-size: 1.9rem;
-      font-weight: 600;
+      font-size: 1.4rem;
+      font-weight: 500;
+      text-transform: capitalize;
     }
 
     .description {
-      font-size: 1.8rem;
-      font-weight: 500;
+      display: flex;
+      align-items: flex-start;
+      padding: 20px 0 0 0;
+
+      p {
+        font-size: 1.2rem;
+        font-weight: 500;
+        color: darkgray;
+      }
+
+      .description_ {
+        color: black;
+        padding-left: 20px;
+        font-size: 1rem;
+        font-weight: 400;
+      }
     }
 
 
@@ -320,13 +341,13 @@ const Main = styled.div`
 
     .price {
       display: flex;
-      align-items: center;
+      align-items: flex-end;
       justify-content: center;
       padding: 8px 0;
 
       h4 {
-        font-size: 1.5rem;
-        font-weight: 650;
+        font-size: 1.7rem;
+        font-weight: 550;
       }
 
       h5 {
@@ -354,6 +375,7 @@ const Main = styled.div`
         display: flex;
         align-items: center;
         font-weight: 600;
+        color: #3a3a3a;
       }
 
       .offer__p {
@@ -368,7 +390,7 @@ const Main = styled.div`
         }
 
         p {
-          font-size: 1rem;
+          font-size: 1.05rem;
           padding: 0 0 0 5px;
           //white-space: nowrap;
 
@@ -380,8 +402,8 @@ const Main = styled.div`
     }
 
     .warranty {
-      font-size: 1rem;
-      padding: 5px 0;
+      font-size: 1.2rem;
+      padding: 10px 0 0 0;
       font-weight: 600;
     }
 
@@ -389,7 +411,8 @@ const Main = styled.div`
       width: 100%;
       height: 80%;
       background-color: #ffffff;
-      padding: 20px 20px;
+      margin: 30px 0 0 0;
+      padding: 20px 10px;
       box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
 
       .swiper-slide {
@@ -431,7 +454,7 @@ const Main = styled.div`
 `
 
 const Product = styled.div`
-  padding: 10px 10px;
+  //padding: 10px 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -463,6 +486,7 @@ const Product = styled.div`
     text-align: center;
     white-space: nowrap;
     text-decoration: none;
+    color: black;
   }
 
   h3 {
@@ -474,7 +498,7 @@ const Product = styled.div`
 
   h4 {
     font-size: 1.1rem;
-    color: #5db45d;
+    color: #4b8f4b;
     font-weight: 400;
     padding: 5px 0 0 0;
   }
@@ -484,6 +508,4 @@ const Product = styled.div`
     color: #a2a2a2;
     padding: 5px 0 0 0;
   }
-
-
 `

@@ -40,7 +40,7 @@ import {
   getProductsByUser,
   updateProduct,
   deleteTour,
-  getProductsBySearch
+  getProductsBySearch, getCategoryRelatedProducts
 } from "../controllers/product.js";
 
 router.get("/", getProducts)
@@ -52,5 +52,7 @@ router.post("/", auth, upload.single('imageFile'), createProduct)
 router.patch("/:id", auth, upload.single('imageFile'), updateProduct)
 router.delete("/:id", auth, deleteTour)
 router.get("/userProducts/:id", auth, getProductsByUser)
+
+router.get("/category/:relatedProducts", getCategoryRelatedProducts)
 
 export default router;
