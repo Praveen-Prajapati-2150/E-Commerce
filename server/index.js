@@ -24,9 +24,9 @@ app.use('/users', userRouter);
 app.use('/product', productRouter)
 app.use('/order', orderRouter)
 app.use('/cart', cartRouter)
-// app.use("/", (req, res) => {
-//   res.send("Welcome to E-Commerce Site")
-// })
+app.use("/", (req, res) => {
+  res.send("Welcome to E-Commerce Site")
+})
 
 // app.get("/", function (req, res) {
 //   res.send("hello world")
