@@ -28,9 +28,6 @@ app.use("/", (req, res) => {
   res.send("Welcome to E-Commerce Site")
 })
 
-// app.get("/", function (req, res) {
-//   res.send("hello world")
-// })
 
 const CONNECTION_URL = 'mongodb+srv://prsmart2150:prsmart08101999@cluster0.8jgdobe.mongodb.net/?retryWrites=true&w=majority'
 const port = process.env.PORT || 5000;
