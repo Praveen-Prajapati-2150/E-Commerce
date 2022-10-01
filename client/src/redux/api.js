@@ -1,8 +1,15 @@
 import axios from 'axios'
 import category from "../components/Category";
 
+const dotEnv = process.env.NODE_ENV !== "production";
+
+console.log("process.env.NODE_ENV", process.env.NODE_ENV)
+console.log("dotEnv", dotEnv)
+
+const {REACT_APP_DEV_URL, REACT_APP_PROD_API} = process.env;
+
 const API = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: `${dotEnv ? REACT_APP_DEV_URL : REACT_APP_PROD_API}`,
 })
 
 API.interceptors.request.use((req) => {
@@ -36,6 +43,6 @@ export const updateProduct = ({id, formValue}) => API.patch(`/product/${id}`, fo
 })
 export const deleteProduct = (productId) => API.delete(`/product/${productId}`)
 
-export const addToCart = ({userId,productDetails}) => API.post(`/cart/addToCart/${userId}`, productDetails)
+export const addToCart = ({userId, productDetails}) => API.post(`/cart/addToCart/${userId}`, productDetails)
 
 export const getCategoryRelatedProducts = ({category}) => API.get(`/product/category/${category}`)
