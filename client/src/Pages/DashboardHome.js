@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {deleteProduct, getProductsByUser} from '../redux/featuers/productSlice'
 import styled from "styled-components";
 import {toast} from 'react-toastify'
 import {GrUpdate} from 'react-icons/gr'
 import {MdDelete} from 'react-icons/md'
-import {Link, useParams} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 
 const excerpt = (str, count) => {

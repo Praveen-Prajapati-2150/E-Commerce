@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
-import {Link, useNavigate} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import {Outlet} from 'react-router-dom'
 import {useLocation} from 'react-router-dom';
 

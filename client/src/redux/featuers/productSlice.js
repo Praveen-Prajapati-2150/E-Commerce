@@ -1,6 +1,5 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import * as api from '../api'
-import category from "../../components/Category";
 
 export const getProducts = createAsyncThunk(
   "product/getProducts",

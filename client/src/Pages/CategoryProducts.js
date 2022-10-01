@@ -1,11 +1,8 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import category from "../components/Category";
 import {Link, useParams} from "react-router-dom";
 import {getCategoryRelatedProducts} from "../redux/featuers/productSlice";
 import styled from 'styled-components'
-import {GrUpdate} from "react-icons/gr";
-import {MdDelete} from "react-icons/md";
 
 const excerpt = (str, count) => {
   if (str.length > count) {

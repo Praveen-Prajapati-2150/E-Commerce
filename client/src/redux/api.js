@@ -1,5 +1,4 @@
 import axios from 'axios'
-import category from "../components/Category";
 
 const dotEnv = process.env.NODE_ENV !== "production";
 

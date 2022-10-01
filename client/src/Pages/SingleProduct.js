@@ -1,18 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {useParams, useNavigate, Link} from "react-router-dom";
 import {getProduct, getRelatedProducts} from "../redux/featuers/productSlice";
-import {addProductToCart} from '../redux/featuers/cartSlice'
 import {useDispatch, useSelector} from "react-redux";
 import {FaShoppingCart} from 'react-icons/fa'
-import {FcElectricity} from 'react-icons/fc'
 import {GiElectric} from 'react-icons/gi'
-// import {SiFastapi} from 'react-icons/fast'
 import styled from 'styled-components'
 import {AiFillStar} from 'react-icons/ai'
 import {MdLabel} from 'react-icons/md'
 import {Navigation} from "swiper";
 import {Swiper, SwiperSlide} from "swiper/react";
-import {toast} from 'react-toastify'
 import {addToCart} from "../redux/featuers/cartSlice";
 
 
@@ -29,8 +25,6 @@ const SingleProduct = () => {
   const {id} = useParams();
   const {user} = useSelector((state) => ({...state.auth}))
   const {product, relatedProducts, loading} = useSelector((state) => ({...state.product}))
-  const {cart} = useSelector((state) => ({...state.cart}))
-  // const {cartItems} = useSelector((state) => ({...state.cart}))
   const [category, setCategory] = useState(product.category)
   const [productDetails, setProductDetails] = useState({
     id: "",

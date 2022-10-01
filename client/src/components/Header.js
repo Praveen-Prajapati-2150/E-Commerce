@@ -4,7 +4,6 @@ import {HeaderStyled} from "./styles/Header.styled";
 import {FaShoppingCart} from 'react-icons/fa'
 import {CgProfile} from 'react-icons/cg'
 import {BiSearchAlt} from 'react-icons/bi'
-import {Input} from "./styles/Input.styled";
 import {useDispatch, useSelector} from "react-redux";
 import {setLogout} from "../redux/featuers/authslice";
 import decode from 'jwt-decode'
@@ -14,7 +13,6 @@ import {getProductsBySearch} from "../redux/featuers/productSlice";
 const Header = () => {
   const {user} = useSelector((state) => ({...state.auth}))
   const [searchQuery, setSearchQuery] = useState("")
-  // const cart = useSelector((state) => ({...state.cart}))
   const cart = useSelector((state) => state.cart.cart)
 
   const [cart_, setCart_] = useState(cart)

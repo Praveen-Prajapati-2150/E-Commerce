@@ -1,9 +1,8 @@
 import React from 'react';
-import styled from 'styled-components'
 import {Input} from '../components/styles/Input.styled'
 import {Section, Box, Heading, CenterDiv, Button} from '../components/styles/Auth.styled'
 import {Link, useNavigate} from 'react-router-dom'
-import {useState, useEffect} from "react";
+import {useState} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import {signin} from '../redux/featuers/authslice'
 import {toast} from 'react-toastify'
@@ -16,7 +15,7 @@ const initialState = {
 const Login = () => {
   const [formValue, setFormValue] = useState(initialState)
   const {email, password} = formValue
-  const {loading, error} = useSelector((state) => ({...state.auth}))
+  // const {loading, error} = useSelector((state) => ({...state.auth}))
   const dispatch = useDispatch()
   const navigate = useNavigate()
 

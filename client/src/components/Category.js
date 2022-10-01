@@ -5,7 +5,7 @@ import {Swiper, SwiperSlide} from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import {Pagination, Navigation} from "swiper";
+import {Navigation} from "swiper";
 import {Button} from "./styles/Button.styled";
 import {useDispatch, useSelector} from "react-redux";
 import {getProducts} from "../redux/featuers/productSlice";
@@ -60,7 +60,7 @@ const Category = ({category}) => {
 
           {
             products?.map((prod, index) => {
-                if (loading) return <h3>loading</h3>
+                if (loading) return null
                 if (prod.category === category)
                   return (
                     <SwiperSlide key={index}>

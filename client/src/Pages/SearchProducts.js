@@ -1,8 +1,6 @@
-import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
+import React from 'react';
+import { useSelector} from "react-redux";
 import {Link} from "react-router-dom";
-import {GrUpdate} from "react-icons/gr";
-import {MdDelete} from "react-icons/md";
 import styled from "styled-components";
 
 const excerpt = (str, count) => {
@@ -14,7 +12,6 @@ const excerpt = (str, count) => {
 
 const SearchProducts = () => {
   const {products} = useSelector((state) => ({...state.product}))
-  const dispatch = useDispatch()
 
   return (
     <Main>

@@ -8,10 +8,6 @@ import {register} from "../redux/featuers/authslice";
 import {toast} from 'react-toastify'
 import {useNavigate} from 'react-router-dom'
 
-const Label = styled.label`
-  color: ${({theme}) => theme.colors.para};
-`
-
 const initialState = {
   firstName: "",
   lastName: "",
@@ -23,7 +19,7 @@ const initialState = {
 
 const Signup = () => {
   const [formValue, setFormValue] = useState(initialState);
-  const {loading, error} = useSelector((state) => ({...state.auth}));
+  const {error} = useSelector((state) => ({...state.auth}));
   const {firstName, lastName, email, password, confirmPassword} = formValue;
   const dispatch = useDispatch();
   const navigate = useNavigate()
