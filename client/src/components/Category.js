@@ -31,7 +31,7 @@ const Category = ({category}) => {
   }, [])
 
   useEffect(() => {
-    toast.error(`${error}`)
+    // toast.error(`${error}`)
     console.log(error)
   }, [error])
 

@@ -53,7 +53,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <GlobalStyles/>
         <Appp>
-          <ToastContainer autoClose={1000}/>
+          <ToastContainer autoClose={500}/>
           <Header/>
 
           <Routes>

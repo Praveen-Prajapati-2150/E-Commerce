@@ -10,6 +10,7 @@ import {MdLabel} from 'react-icons/md'
 import {Navigation} from "swiper";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {addToCart} from "../redux/featuers/cartSlice";
+import {toast} from 'react-toastify';
 
 
 const excerpt = (str, count) => {
@@ -27,9 +28,7 @@ const SingleProduct = () => {
   const {product, relatedProducts, loading} = useSelector((state) => ({...state.product}))
   const [category, setCategory] = useState(product.category)
   const [productDetails, setProductDetails] = useState({
-    id: "",
-    quantity: 1,
-    price: 0,
+    id: "", quantity: 1, price: 0,
   })
   const [userId, setUserId] = useState("")
   const user_ = JSON.parse(localStorage.getItem("profile"))
@@ -60,19 +59,42 @@ const SingleProduct = () => {
   // console.log(userId)
   // console.log("productDetails", productDetails)
   // console.log("cart", cart)
-  console.log("relatedProducts", relatedProducts)
-  console.log("relatedProducts.length", relatedProducts.length)
+  // console.log("relatedProducts", relatedProducts)
+  // console.log("relatedProducts.length", relatedProducts.length)
 
   function AddToCart() {
     // dispatch(addProductToCart({userId, productDetails, toast}))
     console.log("add to cart called")
-    dispatch(addToCart({
-      id: product._id,
-      title: product.title,
-      imageFile: product.imageFile,
-      price: product.price,
-      description: product.description
-    }))
+    console.log("user", user)
+    if (user !== null) {
+      dispatch(addToCart({
+        id: product._id,
+        title: product.title,
+        imageFile: product.imageFile,
+        price: product.price,
+        description: product.description
+      }))
+    } else {
+      toast.error("first login to add cart")
+    }
+  }
+
+  function BuyNow() {
+    // dispatch(addProductToCart({userId, productDetails, toast}))
+    console.log("add to cart called")
+    console.log("user", user)
+    if (user !== null) {
+      dispatch(addToCart({
+        id: product._id,
+        title: product.title,
+        imageFile: product.imageFile,
+        price: product.price,
+        description: product.description
+      }))
+      navigate("/cart")
+    } else {
+      toast.error("first login to add cart")
+    }
   }
 
 
@@ -80,12 +102,8 @@ const SingleProduct = () => {
     <Main>
       <div className={"left_div"}>
         <div className={"image"}>
-          {
-            product.imageFile ?
-              <img src={process.env.REACT_APP_IMAGE_PATH + product.imageFile} alt={"prod"}/>
-              :
-              <img src={"/assets/product/no__product.png"} alt={"prod"}/>
-          }
+          {product.imageFile ? <img src={process.env.REACT_APP_IMAGE_PATH + product.imageFile} alt={"prod"}/> :
+            <img src={"/assets/product/no__product.png"} alt={"prod"}/>}
         </div>
         <div className={"buttons"}>
           <button onClick={() => {
@@ -94,8 +112,7 @@ const SingleProduct = () => {
           </button>
           <button
             onClick={() => {
-              AddToCart()
-              navigate("/cart")
+              BuyNow()
             }}
           ><GiElectric className={"icon1"}/> BUY NOW
           </button>
@@ -115,15 +132,18 @@ const SingleProduct = () => {
 
           <div className={"offers"}>
             <h1>Available Offer</h1>
-            <div className={"offer__p"}><MdLabel className={"icon"}/><p><span>Bank Offer </span>5% Cashback on
-              Flipkart
-              Axis Bank CardT&</p>
+            <div className={"offer__p"}><MdLabel className={"icon"}/>
+              <p>
+                <span>Bank Offer </span>
+                5% Cashback on Flipkart Axis Bank CardT&
+              </p>
             </div>
-            <div className={"offer__p"}><MdLabel className={"icon"}/><p><span>Partner Offer </span>Buy this product
-              and
-              get upto ₹500 off on
-              Flipkart
-              FurnitureKnow More</p></div>
+            <div className={"offer__p"}><MdLabel className={"icon"}/>
+              <p>
+                <span>Partner Offer </span>
+                Buy this product and get upto ₹500 off on Flipkart FurnitureKnow More
+              </p>
+            </div>
             <div className={"offer__p"}><MdLabel className={"icon"}/><p><span>Partner Offer </span>Purchase this
               product &
               win a surprise
@@ -144,51 +164,35 @@ const SingleProduct = () => {
 
         </>
 
-        {
-          relatedProducts.length !== 0 ?
-            <Swiper
-              slidesPerView={2}
-              spaceBetween={20}
-              navigation={true}
-              modules={[Navigation]}
-              className="mySwiper"
-            >
-              {
-                relatedProducts?.map((prod, index) => {
-                    if (loading) return <h3>loading</h3>
-                    return (
-                      <SwiperSlide key={index}>
-                        <Link to={`/product/${prod._id}`}>
-                          <Product>
-                            <div className={"image"}>
-                              {
-                                prod.imageFile ?
-                                  <img src={process.env.REACT_APP_IMAGE_PATH + prod.imageFile} alt={"prod"}/>
-                                  :
-                                  <img src={"/assets/product/no__product.png"} alt={"prod"}/>
-                              }
-                            </div>
-                            <h3>{excerpt(prod.title, 20)}</h3>
-                            <h4>From ₹{Math.round(prod.price)}</h4>
-                            <label>
-                              {excerpt(prod.description, 25)}
-                            </label>
-                          </Product>
-                        </Link>
-                      </SwiperSlide>
-                    )
-                  }
-                )
-
-              }
-
-            </Swiper>
-            :
-            null
-        }
+        {relatedProducts.length !== 0 ? <Swiper
+          slidesPerView={2}
+          spaceBetween={20}
+          navigation={true}
+          modules={[Navigation]}
+          className="mySwiper"
+        >
+          {relatedProducts?.map((prod, index) => {
+            if (loading) return <h3>loading</h3>
+            return (<SwiperSlide key={index}>
+              <Link to={`/product/${prod._id}`}>
+                <Product>
+                  <div className={"image"}>
+                    {prod.imageFile ? <img src={process.env.REACT_APP_IMAGE_PATH + prod.imageFile} alt={"prod"}/> :
+                      <img src={"/assets/product/no__product.png"} alt={"prod"}/>}
+                  </div>
+                  <h3>{excerpt(prod.title, 20)}</h3>
+                  <h4>From ₹{Math.round(prod.price)}</h4>
+                  <label>
+                    {excerpt(prod.description, 25)}
+                  </label>
+                </Product>
+              </Link>
+            </SwiperSlide>)
+          })
+          }
+        </Swiper> : null}
 
       </div>
-
 
     </Main>
   );
