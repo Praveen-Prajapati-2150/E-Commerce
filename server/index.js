@@ -44,48 +44,50 @@ mongoose
 // your task code started from here
 // I'm using Cheerio and Puppeteer for scraping data
 
-(async () => {
-  const browser = await puppeteer.launch({
-    headless: false,
-  });
+// (async () => {
+//   const browser = await puppeteer.launch({
+//     headless: false,
+//   });
 
-  const page = await browser.newPage();
-  await page.goto(
-    'https://www.amazon.in/gp/buy/thankyou/handlers/display.html?purchaseId=404-2848910-8988313&ref_=chk_typ_browserRefresh&isRefresh=1'
-  );
+//   const page = await browser.newPage();
+//   await page.goto(
+//     'https://www.amazon.in/gp/buy/thankyou/handlers/display.html?purchaseId=404-2848910-8988313&ref_=chk_typ_browserRefresh&isRefresh=1'
+//   );
 
-  await page.type('#ap_email', '8178428798');
-  await page.click('#continue');
-  await page.waitForNavigation();
-  await page.type('#ap_password', 'praveen@321');
-  await page.click('#signInSubmit');
-  await page.waitForNavigation();
+//   await page.type('#ap_email', '8178428798');
+//   await page.click('#continue');
+//   await page.waitForNavigation();
+//   await page.type('#ap_password', 'praveen@321');
+//   await page.click('#signInSubmit');
+//   await page.waitForNavigation();
 
-  await page.click('#nav-orders');
+//   await page.click('#nav-orders');
 
-  await page.screenshot({ path: 'image.png' });
+//   await page.screenshot({ path: 'image.png' });
 
-  // here we storing all html data in pageData
+//   // here we storing all html data in pageData
 
-  const PageData = await page.evaluate(() => {
-    return {
-      html: document.documentElement.innerHTML,
-      width: document.documentElement.clientWidth,
-      height: document.documentElement.clientHeight,
-    };
-  });
+//   const PageData = await page.evaluate(() => {
+//     return {
+//       html: document.documentElement.innerHTML,
+//       width: document.documentElement.clientWidth,
+//       height: document.documentElement.clientHeight,
+//     };
+//   });
 
-  // we can see data from by consoling
-  // console.log('PageData', PageData);
+//   // we can see data from by consoling
 
-  // here we using cheerio to extract data from pageData.html
-  const $ = cheerio.load(PageData.html);
+//   // console.log('PageData', PageData);
 
-  const a = $('.a-link-normal');
-  const price = $('.currencyINRFallback');
+//   // here we using cheerio to extract data from pageData.html
 
-  console.log(a.text());
-  console.log(price.text());
+//   const $ = cheerio.load(PageData.html);
 
-  await browser.close();
-})();
+//   const a = $('.a-link-normal');
+//   const price = $('.currencyINRFallback');
+
+//   console.log(a.text());
+//   console.log(price.text());
+
+//   await browser.close();
+// })();

@@ -5,9 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b49a13d1-a301-4cc6-bc0a-96582f000b24" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/public/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/Pages/SingleProduct.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/Pages/SingleProduct.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Header.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/styles/Header.styled.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/styles/Header.styled.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/server/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,6 +24,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -47,7 +54,8 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../job tasks/io-factory-project" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -82,7 +90,12 @@
       <workItem from="1664004473114" duration="11891000" />
       <workItem from="1664101808977" duration="9822000" />
       <workItem from="1664271863965" duration="68022000" />
-      <workItem from="1665036295754" duration="2295000" />
+      <workItem from="1665036295754" duration="3644000" />
+      <workItem from="1665081957328" duration="606000" />
+      <workItem from="1665144567714" duration="129000" />
+      <workItem from="1666356215525" duration="4852000" />
+      <workItem from="1666772189794" duration="429000" />
+      <workItem from="1670859355646" duration="3429000" />
     </task>
     <servers />
   </component>

@@ -20,6 +20,7 @@ import Cart from './Pages/Cart'
 import PrivateRoute from "./components/PrivateRoute";
 import NotFound from "./Pages/NotFound";
 import CategoryProducts from "./Pages/CategoryProducts";
+import Navbar from "./components/HeaderNav";
 
 
 const theme = {
@@ -55,6 +56,7 @@ function App() {
         <Appp>
           <ToastContainer autoClose={500}/>
           <Header/>
+          <Navbar />
 
           <Routes>
             <Route path={"/"} element={<Home/>}/>
