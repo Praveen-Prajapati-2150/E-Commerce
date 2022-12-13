@@ -5,15 +5,76 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b49a13d1-a301-4cc6-bc0a-96582f000b24" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/styles/Header.styled.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/styles/Header.styled.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/redux/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/server/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/e-commerce.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/.env" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/config/base.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/config/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/assets/home/appliances.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/assets/home/beauty.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/assets/home/car_1.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/assets/home/car_2.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/assets/home/category.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/assets/home/electronics.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/assets/home/fashion.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/assets/home/grocery.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/assets/home/home.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/assets/home/product_1.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/assets/home/travel.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/assets/product/no__product.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/assets/product/no_product.jfif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/logo192.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/logo512.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/robots.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/Pages/AddProduct.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/Pages/Cart.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/Pages/CategoryProducts.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/Pages/Dashboard.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/Pages/DashboardHome.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/Pages/Home.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/Pages/Login.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/Pages/NotFound.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/Pages/SearchProducts.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/Pages/Signup.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/Pages/SingleProduct.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Category.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Header.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/HeaderNav.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/LoadingToRedirect.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/PrivateRoute.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/styles/Auth.styled.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/styles/Button.styled.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/styles/Global.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/styles/Header.styled.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/styles/Input.styled.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/styles/LoadingSpinner.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/styles/navbar.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/index.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/api.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/featuers/authslice.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/featuers/cartSlice.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/featuers/productSlice.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/redux/store.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/reportWebVitals.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/setupTests.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/utils/Button.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/webpack.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/yarn.lock" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,7 +156,7 @@
       <workItem from="1665144567714" duration="129000" />
       <workItem from="1666356215525" duration="4852000" />
       <workItem from="1666772189794" duration="429000" />
-      <workItem from="1670859355646" duration="3429000" />
+      <workItem from="1670859355646" duration="5125000" />
     </task>
     <servers />
   </component>
