@@ -23,12 +23,13 @@ app.use(bodyParser.json());
 
 app.use('/public', express.static('public'));
 app.use('/users', userRouter);
-app.use('/product', productRouter);
-app.use('/order', orderRouter);
-app.use('/cart', cartRouter);
-app.use('/', (req, res) => {
-  res.send('Welcome to E-Commerce Site');
-});
+
+app.use('/product', productRouter)
+app.use('/order', orderRouter)
+app.use('/cart', cartRouter)
+app.use("/", (req, res) => {
+  res.send("Welcome to E-Commerce Site")
+})
 
 const CONNECTION_URL =
   'mongodb+srv://prsmart2150:prsmart08101999@cluster0.8jgdobe.mongodb.net/?retryWrites=true&w=majority';
