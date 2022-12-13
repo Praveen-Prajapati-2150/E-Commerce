@@ -5,57 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b49a13d1-a301-4cc6-bc0a-96582f000b24" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Procfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/test.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image.png" beforeDir="false" afterPath="$PROJECT_DIR$/image.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/testModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/testModel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/controllers/cartController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/cartController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/controllers/orderController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/orderController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/controllers/product.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/product.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/controllers/test.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/controllers/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/image.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/middleware/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/auth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/middleware/imageUploader.js" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/imageUploader.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/models/cartModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/cartModel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/models/orderModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/orderModel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/models/product.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/product.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/models/testModel.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/models/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/public/uploads/1662661514735_Sea-level_rise_will_cause_more-573ad8307bc77421d111058d80a752e2.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/uploads/1662661514735_Sea-level_rise_will_cause_more-573ad8307bc77421d111058d80a752e2.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/public/uploads/1662661721198_product_1.webp" beforeDir="false" afterPath="$PROJECT_DIR$/public/uploads/1662661721198_product_1.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/public/uploads/1663092472256_product_1.webp" beforeDir="false" afterPath="$PROJECT_DIR$/public/uploads/1663092472256_product_1.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/public/uploads/1664356110887_-original-imaghkcjwpmszxtg.webp" beforeDir="false" afterPath="$PROJECT_DIR$/public/uploads/1664356110887_-original-imaghkcjwpmszxtg.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/public/uploads/1664356592513_-original-imagbmf26xbmzhk7.webp" beforeDir="false" afterPath="$PROJECT_DIR$/public/uploads/1664356592513_-original-imagbmf26xbmzhk7.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/public/uploads/1664369537242_-original-imaghkcjwpmszxtg.webp" beforeDir="false" afterPath="$PROJECT_DIR$/public/uploads/1664369537242_-original-imaghkcjwpmszxtg.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/public/uploads/1664369589355_u-series-55-u1s-55uc1a00-oneplus-original-imag7xtnzgaaxqrg.webp" beforeDir="false" afterPath="$PROJECT_DIR$/public/uploads/1664369589355_u-series-55-u1s-55uc1a00-oneplus-original-imag7xtnzgaaxqrg.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/public/uploads/1664369842920_ww60r20glma-tl-samsung-original-imafpns894qh5zta.webp" beforeDir="false" afterPath="$PROJECT_DIR$/public/uploads/1664369842920_ww60r20glma-tl-samsung-original-imafpns894qh5zta.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/public/uploads/1664370455133_0-5-12-mm-stainless-steel-ng-1153-digital-usb-corded-cordless-original-imag2ngynbhz6p43.webp" beforeDir="false" afterPath="$PROJECT_DIR$/public/uploads/1664370455133_0-5-12-mm-stainless-steel-ng-1153-digital-usb-corded-cordless-original-imag2ngynbhz6p43.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/public/uploads/1664370589732_pvc-familyred6s-flipzon-blue-original-imagyfyhjzk5s5yy.webp" beforeDir="false" afterPath="$PROJECT_DIR$/public/uploads/1664370589732_pvc-familyred6s-flipzon-blue-original-imagyfyhjzk5s5yy.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/public/uploads/1664394505279_1-pp-polypropylene-64-wschrcherrmbnbbkbkgy-wakefit-96-original-imagf3earetmtb32.webp" beforeDir="false" afterPath="$PROJECT_DIR$/public/uploads/1664394505279_1-pp-polypropylene-64-wschrcherrmbnbbkbkgy-wakefit-96-original-imagf3earetmtb32.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/public/uploads/1664394618368_30-mango-wood-24-2-m034-ifa-lite-30-barnig-original-imaggc2h6fshvcrm.webp" beforeDir="false" afterPath="$PROJECT_DIR$/public/uploads/1664394618368_30-mango-wood-24-2-m034-ifa-lite-30-barnig-original-imaggc2h6fshvcrm.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/public/uploads/1664394735657_symmetrical-147-32-grey-polycotton-71-12-25-dw-set2sf-original-imagbhrt5swcp4dw.webp" beforeDir="false" afterPath="$PROJECT_DIR$/public/uploads/1664394735657_symmetrical-147-32-grey-polycotton-71-12-25-dw-set2sf-original-imagbhrt5swcp4dw.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/public/uploads/1664395205968_-original-imaggtkahpu5ragj.webp" beforeDir="false" afterPath="$PROJECT_DIR$/public/uploads/1664395205968_-original-imaggtkahpu5ragj.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/public/uploads/1664395809198_free-wptlc-1001-whippet-original-imagcpyer62gvxws.webp" beforeDir="false" afterPath="$PROJECT_DIR$/public/uploads/1664395809198_free-wptlc-1001-whippet-original-imagcpyer62gvxws.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/public/uploads/1664395880645_-original-imaggba6bjgbzrn3.webp" beforeDir="false" afterPath="$PROJECT_DIR$/public/uploads/1664395880645_-original-imaggba6bjgbzrn3.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/public/uploads/1664395960271_38-asadtro2704-arrow-original-imaghfs8ft5fwgzs.webp" beforeDir="false" afterPath="$PROJECT_DIR$/public/uploads/1664395960271_38-asadtro2704-arrow-original-imaghfs8ft5fwgzs.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/public/uploads/1664396072413_40-stylish-blazer-trulyfeb-original-imag7yt5ygqwx6cv.webp" beforeDir="false" afterPath="$PROJECT_DIR$/public/uploads/1664396072413_40-stylish-blazer-trulyfeb-original-imag7yt5ygqwx6cv.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/public/uploads/1664396177998_mwp22hn-a-apple-original-imag3qe9eqkfhmg8.webp" beforeDir="false" afterPath="$PROJECT_DIR$/public/uploads/1664396177998_mwp22hn-a-apple-original-imag3qe9eqkfhmg8.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/public/uploads/1664396366955_18-sanfjm31045-saf-original-imagyfezvywxj7yf.webp" beforeDir="false" afterPath="$PROJECT_DIR$/public/uploads/1664396366955_18-sanfjm31045-saf-original-imagyfezvywxj7yf.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/public/uploads/1664396400721_18-sanfjm31045-saf-original-imagyfezvywxj7yf.webp" beforeDir="false" afterPath="$PROJECT_DIR$/public/uploads/1664396400721_18-sanfjm31045-saf-original-imagyfezvywxj7yf.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/routes/cartRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/cartRoute.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/routes/orderRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/orderRoute.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/routes/product.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/product.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/yarn.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,7 +88,7 @@
       <workItem from="1666356215525" duration="4852000" />
       <workItem from="1666772189794" duration="429000" />
       <workItem from="1670859355646" duration="5125000" />
-      <workItem from="1670951291135" duration="662000" />
+      <workItem from="1670951291135" duration="3095000" />
     </task>
     <servers />
   </component>
