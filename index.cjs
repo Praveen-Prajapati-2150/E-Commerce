@@ -10,6 +10,7 @@ import orderRouter from './routes/orderRoute.js';
 import cartRouter from './routes/cartRoute.js';
 import puppeteer from 'puppeteer';
 import cheerio from 'cheerio';
+import path from 'path'
 
 const app = express();
 dotenv.config();
@@ -30,6 +31,18 @@ app.use('/', (req, res) => {
   res.send('Welcome to E-Commerce Site');
 });
 
+//serving the frontend
+app.use(express.static(path.join(__dirname, "./client/build")))
+
+app.get("*", function (_, res) {
+  res.sendFile(
+    path.join(__dirname, "./client/build/index.html"),
+    function (err) {
+      res.status(500).send(err);
+    }
+  )
+})
+
 const CONNECTION_URL =
   'mongodb+srv://prsmart2150:prsmart08101999@cluster0.8jgdobe.mongodb.net/?retryWrites=true&w=majority';
 const port = process.env.PORT || 5000;
@@ -40,6 +53,29 @@ mongoose
     app.listen(port, () => console.log(`server running on PORT: ${port}`))
   )
   .catch((error) => console.log(error.message));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // your task code started from here
 // I'm using Cheerio and Puppeteer for scraping data
