@@ -56,7 +56,7 @@ function App() {
         <Appp>
           <ToastContainer autoClose={500}/>
           <Header/>
-          <Navbar />
+          {/*<Navbar />*/}
 
           <Routes>
             <Route path={"/"} element={<Home/>}/>
