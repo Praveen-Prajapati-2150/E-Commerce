@@ -16,6 +16,7 @@ dotenv.config();
 
 app.use(morgan('combined'));
 // app.use(express.json({limit: "30mb", extended: true}))
+// app.use(express.json({limit: "30mb", extended: true}))
 app.use(express.json());
 app.use(express.urlencoded({ limit: '30mb', extended: true }));
 app.use(cors());
