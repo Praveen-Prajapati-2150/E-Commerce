@@ -37,10 +37,10 @@ const Login = () => {
         <Heading>Login</Heading>
         <label>Username</label>
         <Input type={"email"} value={email} name={"email"} onChange={OnInputChange}
-               placeholde={"enter your username"}/>
+               placeholder={"enter your username"}/>
         <label>Password</label>
         <Input type={"password"} value={password} name={"password"} onChange={OnInputChange}
-               placeholde={"enter your password"}/>
+               placeholder={"enter your password"}/>
         <CenterDiv>
           <Button onClick={HandleChange}>Login</Button>
         </CenterDiv>
