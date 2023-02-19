@@ -1,32 +1,34 @@
-import {configureStore} from "@reduxjs/toolkit";
-import authReducer from './featuers/authslice'
-import productReducer from './featuers/productSlice'
-import cartReducer from './featuers/cartSlice'
+import { configureStore } from '@reduxjs/toolkit';
+import authReducer from './featuers/authslice';
+import productReducer from './featuers/productSlice';
+import cartReducer from './featuers/cartSlice';
+import adminReducer from './featuers/adminSlice';
 
-import storage from 'redux-persist/lib/storage';
+// import storage from 'redux-persist/lib/storage';
 import {
   persistStore,
-  persistReducer,
+  // persistReducer,
   FLUSH,
   REHYDRATE,
   PAUSE,
   PERSIST,
   PURGE,
   REGISTER,
-} from 'redux-persist'
+} from 'redux-persist';
 
-const persistConfig = {
-  key: 'root',
-  storage,
-}
+// const persistConfig = {
+//   key: 'root',
+//   storage,
+// };
 
-const persistedReducer = persistReducer(persistConfig, cartReducer)
+// const persistedReducer = persistReducer(persistConfig, cartReducer);
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
     product: productReducer,
     cart: cartReducer,
+    admin: adminReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -34,6 +36,6 @@ export const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),
-})
+});
 
-export const persistor = persistStore(store)
+export const persistor = persistStore(store);

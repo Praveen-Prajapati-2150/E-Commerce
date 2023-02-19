@@ -8,15 +8,14 @@ import userRouter from './routes/user.js';
 import productRouter from './routes/product.js';
 import orderRouter from './routes/orderRoute.js';
 import cartRouter from './routes/cartRoute.js';
-import puppeteer from 'puppeteer';
-import cheerio from 'cheerio';
+import adminRouter from './routes/adminRoute.js';
+// import puppeteer from 'puppeteer';
+// import cheerio from 'cheerio';
 
 const app = express();
 dotenv.config();
 
 app.use(morgan('combined'));
-// app.use(express.json({limit: "30mb", extended: true}))
-// app.use(express.json({limit: "30mb", extended: true}))
 // app.use(express.json({limit: "30mb", extended: true}))
 app.use(express.json());
 app.use(express.urlencoded({ limit: '30mb', extended: true }));
@@ -25,6 +24,7 @@ app.use(bodyParser.json());
 
 app.use('/public', express.static('public'));
 app.use('/users', userRouter);
+app.use('/admin', adminRouter);
 app.use('/product', productRouter);
 app.use('/order', orderRouter);
 app.use('/cart', cartRouter);
@@ -32,8 +32,7 @@ app.use('/', (req, res) => {
   res.send('Welcome to E-Commerce Site');
 });
 
-const CONNECTION_URL =
-  'mongodb+srv://prsmart2150:prsmart08101999@cluster0.8jgdobe.mongodb.net/?retryWrites=true&w=majority';
+const CONNECTION_URL = `mongodb+srv://prsmart2150:${process.env.MONGO_CRED}@cluster0.8jgdobe.mongodb.net/?retryWrites=true&w=majority`;
 const port = process.env.PORT || 5000;
 
 mongoose

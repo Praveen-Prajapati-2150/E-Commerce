@@ -1,91 +1,102 @@
-import React, {useEffect} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {deleteProduct, getProductsByUser} from '../redux/featuers/productSlice'
-import styled from "styled-components";
-import {toast} from 'react-toastify'
-import {GrUpdate} from 'react-icons/gr'
-import {MdDelete} from 'react-icons/md'
-import {Link} from 'react-router-dom'
-
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  deleteProduct,
+  getProductsByUser,
+} from '../redux/featuers/productSlice';
+import styled from 'styled-components';
+import { toast } from 'react-toastify';
+import { GrUpdate } from 'react-icons/gr';
+import { MdDelete } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 
 const excerpt = (str, count) => {
   if (str.length > count) {
-    str = str.substring(0, count) + " ...";
+    str = str.substring(0, count) + ' ...';
   }
   return str;
 };
 
 const DashboardHome = () => {
-    const {user} = useSelector((state) => ({...state.auth}))
-    const {userProducts, loading} = useSelector((state) => ({...state.product}))
-    const dispatch = useDispatch()
-    const userId = user?.result?._id;
+  const { user } = useSelector((state) => ({ ...state.auth }));
+  const { admin } = useSelector((state) => ({ ...state.admin }));
+  const { userProducts, loading } = useSelector((state) => ({
+    ...state.product,
+  }));
+  const dispatch = useDispatch();
+  const userId = user?.result?._id;
+  const adminId = admin?.result?._id;
 
-    // const [userId, setUserId] = useState(userId_)
+  // const [userId, setUserId] = useState(userId_)
 
-    console.log(userId)
+  // console.log(userId);
+  console.log(adminId);
 
-    useEffect(() => {
-      if (userId) {
-        dispatch(getProductsByUser({userId, toast}))
-      }
-    }, [userId])
+  // useEffect(() => {
+  //   if (userId) {
+  //     dispatch(getProductsByUser({ userId, toast }));
+  //   }
+  // }, [userId]);
 
-    function handleDelete(id) {
-      if (window.confirm("Are you sure you want to delete this Product?")) {
-        dispatch(deleteProduct({id, toast}))
-      }
+  useEffect(() => {
+    if (adminId) {
+      dispatch(getProductsByUser({ adminId, toast }));
     }
+  }, [adminId, dispatch]);
 
-    if (userProducts.length === 0) {
-      return (
-        <p>You have not added any Product yet.</p>
-      )
+  function handleDelete(id) {
+    if (window.confirm('Are you sure you want to delete this Product?')) {
+      dispatch(deleteProduct({ id, toast }));
     }
-
-    return (
-      <Main>
-        {
-          userProducts?.map((product, index) => {
-            return (
-              <Product key={index}>
-                <Link key={index} to={`/product/${product._id}`}>
-                  <div className={"image"}>
-                    {
-                      product.imageFile ?
-                        <img src={process.env.REACT_APP_IMAGE_PATH + product.imageFile} alt={"prod"}/>
-                        :
-                        <img src={"/assets/product/no__product.png"} alt={"prod"}/>
-                    }
-                  </div>
-                </Link>
-
-                <h3>{excerpt(product.title, 20)}</h3>
-                <h4>From ₹{product.price}</h4>
-                <label>
-                  {excerpt(product.description, 30)}
-                </label>
-                <div className={"buttons"} onClick={(e) => e.stopPropagation()}>
-                  <Link to={`/dashboard/update_tour/${product._id}`}>
-                    <button title="Update Product"><GrUpdate/></button>
-                  </Link>
-                  <button title="Delete Product" onClick={(e) => {
-                    e.stopPropagation()
-                    handleDelete(product._id)
-                  }}>
-                    <MdDelete/>
-                  </button>
-                </div>
-              </Product>
-            )
-          })
-        }
-
-      </Main>
-    );
   }
-;
 
+  if (userProducts.length === 0) {
+    return <p>You have not added any Product yet.</p>;
+  }
+
+  return (
+    <Main>
+      {userProducts?.map((product, index) => {
+        return (
+          <Product key={index}>
+            <Link key={index} to={`/product/${product._id}`}>
+              <div className={'image'}>
+                {product.imageFile ? (
+                  <img
+                    src={process.env.REACT_APP_IMAGE_PATH + product.imageFile}
+                    alt={'prod'}
+                  />
+                ) : (
+                  <img src={'/assets/product/no__product.png'} alt={'prod'} />
+                )}
+              </div>
+            </Link>
+
+            <h3>{excerpt(product.title, 20)}</h3>
+            <h4>From ₹{product.price}</h4>
+            <label>{excerpt(product.description, 30)}</label>
+            <div className={'buttons'} onClick={(e) => e.stopPropagation()}>
+              <Link to={`/admin/update_tour/${product._id}`}>
+                <button title="Update Product">
+                  <GrUpdate />
+                </button>
+              </Link>
+              <button
+                title="Delete Product"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleDelete(product._id);
+                }}
+              >
+                <MdDelete />
+              </button>
+            </div>
+          </Product>
+        );
+      })}
+    </Main>
+  );
+};
 export default DashboardHome;
 
 const Main = styled.div`
@@ -100,7 +111,7 @@ const Main = styled.div`
   a {
     text-decoration: none;
   }
-`
+`;
 
 const Product = styled.div`
   padding: 10px 10px;
@@ -110,8 +121,7 @@ const Product = styled.div`
   text-decoration: none;
   background-color: white;
   border-radius: 4px;
-  box-shadow: 2px 2px 5px #dbdbdb,
-    -2px -2px 5px #ffffff;
+  box-shadow: 2px 2px 5px #dbdbdb, -2px -2px 5px #ffffff;
   margin: 0 25px 25px 0;
 
   .image {
@@ -135,7 +145,9 @@ const Product = styled.div`
     }
   }
 
-  h3, h4, label {
+  h3,
+  h4,
+  label {
     text-align: center;
     white-space: nowrap;
     text-decoration: none;
@@ -182,6 +194,4 @@ const Product = styled.div`
       }
     }
   }
-
-
-`
+`;

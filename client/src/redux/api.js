@@ -22,6 +22,9 @@ API.interceptors.request.use((req) => {
 
 export const signIn = (formValue) => API.post('/users/signin', formValue);
 export const signUp = (formValue) => API.post('/users/signup', formValue);
+//
+export const adminLogin = (formValue) => API.post('/admin/signin', formValue);
+export const adminSignup = (formValue) => API.post('/admin/signup', formValue);
 // export const getProductsBySearch = (searchQuery) => API.get(`/product/search?searchQuery=${searchQuery}`)
 export const getProductsBySearch = (params) =>
   API.get(`/product/search/${params}`);
@@ -36,8 +39,8 @@ export const createProduct = (formValue) =>
       'Content-Type': 'multipart/form-data',
     },
   });
-export const getProductsByUser = (userId) =>
-  API.get(`/product/userProducts/${userId}`);
+export const getProductsByUser = (adminId) =>
+  API.get(`/product/userProducts/${adminId}`);
 export const updateProduct = ({ id, formValue }) =>
   API.patch(`/product/${id}`, formValue, {
     headers: {

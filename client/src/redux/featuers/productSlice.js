@@ -1,235 +1,245 @@
-import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
-import * as api from '../api'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import * as api from '../api';
 
 export const getProducts = createAsyncThunk(
-  "product/getProducts",
-  async (_, {rejectedWithValue}) => {
+  'product/getProducts',
+  async (_, { rejectedWithValue }) => {
     try {
-      const response = await api.getProducts()
+      const response = await api.getProducts();
       return response.data;
     } catch (err) {
-      return rejectedWithValue(err.response.data)
+      return rejectedWithValue(err.response.data);
     }
   }
-)
-
+);
 
 export const getProduct = createAsyncThunk(
-  "product/getProduct",
-  async (id, {rejectedWithValue}) => {
+  'product/getProduct',
+  async (id, { rejectedWithValue }) => {
     try {
-      const response = await api.getProduct(id)
-      return response.data
+      const response = await api.getProduct(id);
+      return response.data;
     } catch (err) {
-      return rejectedWithValue(err.response.data)
+      return rejectedWithValue(err.response.data);
     }
   }
-)
+);
 
-export const createProduct = createAsyncThunk("product/createProduct",
-  async ({formValue, toast, navigate}, {rejectedWithValue}) => {
-    console.log("formValue", formValue)
+export const createProduct = createAsyncThunk(
+  'product/createProduct',
+  async ({ formValue, toast, navigate }, { rejectedWithValue }) => {
+    console.log('formValue', formValue);
     try {
-      const response = await api.createProduct(formValue)
-      toast.success("Product Created successfully")
-      navigate("/dashboard")
-      return response.data
+      const response = await api.createProduct(formValue);
+      toast.success('Product Created successfully');
+      navigate('/dashboard');
+      return response.data;
     } catch (err) {
-      return rejectedWithValue(err.response.data)
+      return rejectedWithValue(err.response.data);
     }
   }
-)
+);
 
-export const getProductsByUser = createAsyncThunk("product/getProductsByUser",
-  async ({userId, toast}, {rejectedWithValue}) => {
+export const getProductsByUser = createAsyncThunk(
+  'product/getProductsByUser',
+  async ({ adminId, toast }, { rejectedWithValue }) => {
     try {
-      const response = await api.getProductsByUser(userId)
+      const response = await api.getProductsByUser(adminId);
       // toast.success("Products Fetched successfully")
-      return response.data
+      return response.data;
     } catch (err) {
-      return rejectedWithValue(err.response.data)
+      return rejectedWithValue(err.response.data);
     }
   }
-)
+);
 
-export const updateProduct = createAsyncThunk("product/updateProduct",
-  async ({id, formValue, toast, navigate}, {rejectedWithValue}) => {
+export const updateProduct = createAsyncThunk(
+  'product/updateProduct',
+  async ({ id, formValue, toast, navigate }, { rejectedWithValue }) => {
     try {
-      const response = await api.updateProduct({id, formValue})
-      toast.success("Product Updated Successfully")
-      navigate("/dashboard")
-      return response.data
+      const response = await api.updateProduct({ id, formValue });
+      toast.success('Product Updated Successfully');
+      navigate('/dashboard');
+      return response.data;
     } catch (err) {
-      return rejectedWithValue(err.response.data)
+      return rejectedWithValue(err.response.data);
     }
   }
-)
+);
 
-export const deleteProduct = createAsyncThunk("product/deleteProduct",
-  async ({id, toast}, {rejectedWithValue}) => {
+export const deleteProduct = createAsyncThunk(
+  'product/deleteProduct',
+  async ({ id, toast }, { rejectedWithValue }) => {
     try {
-      const response = await api.deleteProduct(id)
-      toast.success("Product Deleted Successfully")
-      return response.data
+      const response = await api.deleteProduct(id);
+      toast.success('Product Deleted Successfully');
+      return response.data;
     } catch (err) {
-      return rejectedWithValue(err.response.data)
+      return rejectedWithValue(err.response.data);
     }
   }
-)
+);
 
-export const getProductsBySearch = createAsyncThunk("product/getProductsBySearch",
-  async ({searchQuery, navigate}, {rejectedWithValue}) => {
+export const getProductsBySearch = createAsyncThunk(
+  'product/getProductsBySearch',
+  async ({ searchQuery, navigate }, { rejectedWithValue }) => {
     try {
-      const response = await api.getProductsBySearch(searchQuery)
+      const response = await api.getProductsBySearch(searchQuery);
       // navigate(`/product/search/${searchQuery}`)
-      return response.data
+      return response.data;
     } catch (err) {
-      return rejectedWithValue(err.response.data)
+      return rejectedWithValue(err.response.data);
     }
   }
-)
+);
 
-export const getRelatedProducts = createAsyncThunk("product/getRelatedProducts",
-  async (category, {rejectedWithValue}) => {
-    console.log({category})
+export const getRelatedProducts = createAsyncThunk(
+  'product/getRelatedProducts',
+  async (category, { rejectedWithValue }) => {
+    console.log({ category });
     try {
-      const response = await api.getRelatedProducts(category)
-      console.log(response)
-      return response.data
+      const response = await api.getRelatedProducts(category);
+      console.log(response);
+      return response.data;
     } catch (err) {
-      return rejectedWithValue(err.response.data)
+      return rejectedWithValue(err.response.data);
     }
   }
-)
+);
 
-export const getCategoryRelatedProducts = createAsyncThunk("product/getCategoryRelatedProducts",
-  async (category, {rejectedWithValue}) => {
+export const getCategoryRelatedProducts = createAsyncThunk(
+  'product/getCategoryRelatedProducts',
+  async (category, { rejectedWithValue }) => {
     try {
-      const response = await api.getCategoryRelatedProducts(category)
-      console.log(response)
-      return response.data
+      const response = await api.getCategoryRelatedProducts(category);
+      console.log(response);
+      return response.data;
     } catch (err) {
-      return rejectedWithValue(err.response.data)
+      return rejectedWithValue(err.response.data);
     }
-  })
-
-
+  }
+);
 
 const productSlice = createSlice({
-  name: "product",
+  name: 'product',
   initialState: {
     product: {},
     products: [],
     userProducts: [],
     relatedProducts: [],
     categoryProducts: [],
-    error: "",
+    error: '',
     loading: false,
   },
   reducers: {},
   extraReducers: {
     [getProducts.pending]: (state, action) => {
-      state.loading = true
+      state.loading = true;
     },
     [getProducts.fulfilled]: (state, action) => {
-      state.loading = false
-      state.products = action.payload
+      state.loading = false;
+      state.products = action.payload;
     },
     [getProducts.rejected]: (state, action) => {
-      state.loading = false
-      state.error = action.payload.message()
+      state.loading = false;
+      state.error = action.payload.message();
     },
 
     [getProduct.pending]: (state, action) => {
-      state.loading = true
+      state.loading = true;
     },
     [getProduct.fulfilled]: (state, action) => {
-      state.loading = false
-      state.product = action.payload
+      state.loading = false;
+      state.product = action.payload;
     },
     [getProduct.rejected]: (state, action) => {
-      state.loading = false
-      state.error = action.payload.message()
+      state.loading = false;
+      state.error = action.payload.message();
     },
 
     [createProduct.pending]: (state, action) => {
-      state.loading = true
+      state.loading = true;
     },
     [createProduct.fulfilled]: (state, action) => {
-      state.loading = false
-      state.products = [action.payload]
+      state.loading = false;
+      state.products = [action.payload];
     },
     [createProduct.rejected]: (state, action) => {
-      state.loading = false
-      state.error = action.payload.message()
+      state.loading = false;
+      state.error = action.payload.message();
     },
 
     [getProductsByUser.pending]: (state, action) => {
-      state.loading = true
+      state.loading = true;
     },
     [getProductsByUser.fulfilled]: (state, action) => {
-      state.loading = false
-      state.userProducts = action.payload
+      state.loading = false;
+      state.userProducts = action.payload;
     },
     [getProductsByUser.rejected]: (state, action) => {
-      state.loading = false
-      state.error = action.payload.message()
+      state.loading = false;
+      state.error = action.payload.message();
     },
 
     [deleteProduct.pending]: (state, action) => {
-      state.loading = true
+      state.loading = true;
     },
     [deleteProduct.fulfilled]: (state, action) => {
-      state.loading = false
+      state.loading = false;
       // state.userProducts = action.payload
-      const {arg: {id}} = action.meta;
+      const {
+        arg: { id },
+      } = action.meta;
       if (id) {
-        state.userProducts = state.userProducts.filter((product) => product._id !== id)
-        state.products = state.products.filter((product) => product._id !== id)
+        state.userProducts = state.userProducts.filter(
+          (product) => product._id !== id
+        );
+        state.products = state.products.filter((product) => product._id !== id);
       }
     },
     [deleteProduct.rejected]: (state, action) => {
-      state.loading = false
-      state.error = action.payload.message()
+      state.loading = false;
+      state.error = action.payload.message();
     },
 
     [getProductsBySearch.pending]: (state, action) => {
-      state.loading = true
+      state.loading = true;
     },
     [getProductsBySearch.fulfilled]: (state, action) => {
-      state.loading = false
-      state.products = action.payload
+      state.loading = false;
+      state.products = action.payload;
     },
     [getProductsBySearch.rejected]: (state, action) => {
-      state.loading = false
-      state.error = action.payload.message()
+      state.loading = false;
+      state.error = action.payload.message();
     },
 
     [getRelatedProducts.pending]: (state, action) => {
-      state.loading = true
+      state.loading = true;
     },
     [getRelatedProducts.fulfilled]: (state, action) => {
-      state.loading = false
-      state.relatedProducts = action.payload.filter((product) => product._id !== state.product._id)
+      state.loading = false;
+      state.relatedProducts = action.payload.filter(
+        (product) => product._id !== state.product._id
+      );
     },
     [getRelatedProducts.rejected]: (state, action) => {
-      state.loading = false
-      state.error = action.payload.message()
+      state.loading = false;
+      state.error = action.payload.message();
     },
 
     [getCategoryRelatedProducts.pending]: (state, action) => {
-      state.loading = true
+      state.loading = true;
     },
     [getCategoryRelatedProducts.fulfilled]: (state, action) => {
-      state.loading = false
-      state.categoryProducts = action.payload
+      state.loading = false;
+      state.categoryProducts = action.payload;
     },
     [getCategoryRelatedProducts.rejected]: (state, action) => {
-      state.loading = false
-      state.error = action.payload.message()
+      state.loading = false;
+      state.error = action.payload.message();
     },
+  },
+});
 
-  }
-})
-
-export default productSlice.reducer
+export default productSlice.reducer;

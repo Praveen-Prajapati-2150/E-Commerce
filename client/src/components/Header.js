@@ -3,12 +3,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { HeaderStyled } from './styles/Header.styled';
 import { FaShoppingCart } from 'react-icons/fa';
 import { CgProfile } from 'react-icons/cg';
+import { FiLogOut } from 'react-icons/fi';
 import { BiSearchAlt } from 'react-icons/bi';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLogout } from '../redux/featuers/authslice';
 import decode from 'jwt-decode';
 import { getProductsBySearch } from '../redux/featuers/productSlice';
-import styled from 'styled-components';
 import { NavBarToggle, MobileView } from './styles/Header.styled';
 
 const Header = () => {
@@ -87,66 +87,66 @@ const Header = () => {
   return (
     <>
       <HeaderStyled>
-          <div className={'left_side'}>
+        <div className={'left_side'}>
+          <Link to={'/'}>
+            <h1>KartZone</h1>
+          </Link>
+        </div>
+
+        <NavBarToggle onClick={() => setShowCross(!showCross)}>
+          {showCross ? (
+            <div className="cross">
+              <p></p>
+              <p></p>
+            </div>
+          ) : (
+            <>
+              <p></p>
+              <p></p>
+              <p></p>
+            </>
+          )}
+        </NavBarToggle>
+
+        <div className={'Input_center'}>
+          <input
+            type={'text'}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder={'Search for products and category'}
+          />
+          <button onClick={() => searchProducts()}>
+            <BiSearchAlt />
+          </button>
+        </div>
+
+        <div className={'right_side'}>
+          {/* {user?.result?._id && <Link to={'/dashboard'}>Dashboard</Link>} */}
+          {user?.result?._id && (
             <Link to={'/'}>
-              <h1>KartZone</h1>
+              <CgProfile />
+              <p>{user?.result?.name.toUpperCase()}</p>
             </Link>
-          </div>
+          )}
+          {user?.result?._id ? (
+            <Link to={'/login'} onClick={() => handleLogout()}>
+              <FiLogOut title="logout" />
+            </Link>
+          ) : (
+            <>
+              <Link to={'/login'}>LogIn</Link>
+              <Link to={'/Signup'}>SignUp</Link>
+            </>
+          )}
 
-          <NavBarToggle onClick={() => setShowCross(!showCross)}>
-            {showCross ? (
-              <div className="cross">
-                <p></p>
-                <p></p>
-              </div>
-            ) : (
-              <>
-                <p></p>
-                <p></p>
-                <p></p>
-              </>
-            )}
-          </NavBarToggle>
-
-          <div className={'Input_center'}>
-            <input
-              type={'text'}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder={'Search for products and category'}
-            />
-            <button onClick={() => searchProducts()}>
-              <BiSearchAlt />
-            </button>
-          </div>
-
-          <div className={'right_side'}>
-            {user?.result?._id && <Link to={'/dashboard'}>Dashboard</Link>}
-            {user?.result?._id ? (
-              <Link to={'/login'} onClick={() => handleLogout()}>
-                Logout
-              </Link>
-            ) : (
-              <>
-                <Link to={'/login'}>LogIn</Link>
-                <Link to={'/Signup'}>SignUp</Link>
-              </>
-            )}
-            {user?.result?._id && (
-              <Link to={'/'}>
-                <CgProfile />
-                <p>{user?.result?.name.toUpperCase()}</p>
-              </Link>
-            )}
-            {user?.result?._id && (
-              <Link to={'/cart'}>
-                <FaShoppingCart />
-                <p>Cart</p>
-                <p className={'cart_no'}>{getTotalCartItemQuantity() || 0}</p>
-              </Link>
-            )}
-          </div>
-
+          {user?.result?._id && (
+            <Link to={'/cart'}>
+              <FaShoppingCart />
+              <p>Cart</p>
+              <p className={'cart_no'}>{getTotalCartItemQuantity() || 0}</p>
+            </Link>
+          )}
+        </div>
 
         {showCross && (
           <MobileView className="mobile_view">
@@ -163,7 +163,7 @@ const Header = () => {
             </div>
 
             <div className={'right_side'}>
-              {user?.result?._id && <Link to={'/dashboard'}>Dashboard</Link>}
+              {/* {user?.result?._id && <Link to={'/dashboard'}>Dashboard</Link>} */}
               {user?.result?._id ? (
                 <Link to={'/login'} onClick={() => handleLogout()}>
                   Logout
@@ -191,8 +191,6 @@ const Header = () => {
           </MobileView>
         )}
       </HeaderStyled>
-
-
     </>
   );
 };

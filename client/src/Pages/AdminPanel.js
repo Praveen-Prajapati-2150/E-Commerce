@@ -7,12 +7,12 @@ import { useLocation } from 'react-router-dom';
 const Links = [
   {
     name: 'Home',
-    // path: "/dashboard"
-    path: '/admin/products',
+    // path: '/dashboard',
+    path: '/admin',
   },
   {
     name: 'Add Product',
-    // path: "/dashboard/add_product"
+    // path: '/dashboard/add_product',
     path: '/admin/add_product',
   },
   // {
@@ -24,11 +24,8 @@ const Links = [
   // },
 ];
 
-const Dashboard = () => {
+const AdminPanel = () => {
   const location = useLocation().pathname;
-  // const path = location.pathname
-
-  console.log(location);
 
   return (
     <Dashboard_>
@@ -36,7 +33,6 @@ const Dashboard = () => {
         {Links?.map((link, index) => {
           return (
             <Link
-              key={index}
               className={location === link.path && 'active_link'}
               to={`${link.path}`}
             >
@@ -53,7 +49,7 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default AdminPanel;
 
 const Dashboard_ = styled.div`
   height: 90vh;

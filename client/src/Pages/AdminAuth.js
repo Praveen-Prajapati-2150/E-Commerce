@@ -7,21 +7,22 @@ import {
   CenterDiv,
   Button,
 } from '../components/styles/Auth.styled';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { signin } from '../redux/featuers/authslice';
 import { toast } from 'react-toastify';
+import { adminSignin, adminSignup } from '../redux/featuers/adminSlice';
 
 const initialState = {
-  email: '',
+  username: '',
   password: '',
 };
 
-const Login = () => {
+const AdminAuth = () => {
   const [formValue, setFormValue] = useState(initialState);
-  const { email, password } = formValue;
-  // const {loading, error} = useSelector((state) => ({...state.auth}))
+
+  const { username, password } = formValue;
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -31,23 +32,32 @@ const Login = () => {
     setFormValue({ ...formValue, [name]: value });
   };
 
-  const HandleChange = (e) => {
+  const AdminLogin = (e) => {
     e.preventDefault();
-    if (email && password) {
-      dispatch(signin({ formValue, toast, navigate }));
+    if (username && password) {
+      dispatch(adminSignin({ formValue, toast, navigate }));
     }
   };
+
+  const AdminSignup = (e) => {
+    e.preventDefault();
+    if (username && password) {
+      dispatch(adminSignup({ formValue, toast, navigate }));
+    }
+  };
+
+  console.log(formValue);
 
   return (
     <Section>
       <Box>
-        <Heading>Login</Heading>
+        <Heading>Admin Login</Heading>
         {/* <form autoComplete="off"> */}
         <label>Username</label>
         <Input
           type={'email'}
-          value={email}
-          name={'email'}
+          name={'username'}
+          value={username}
           onChange={OnInputChange}
           placeholder={'enter your username'}
           autocomplete="off"
@@ -55,26 +65,29 @@ const Login = () => {
         <label>Password</label>
         <Input
           type={'password'}
-          value={password}
           name={'password'}
+          value={password}
           onChange={OnInputChange}
           placeholder={'enter your password'}
           autocomplete="off"
         />
         <CenterDiv>
-          <Button onClick={HandleChange}>Login</Button>
+          <Button onClick={AdminLogin}>Login</Button>
+        </CenterDiv>
+        <CenterDiv>
+          <Button onClick={AdminSignup}>Signup</Button>
         </CenterDiv>
 
-        <CenterDiv>
+        {/* <CenterDiv>
           <label>
             Register if don't register, click to go{' '}
             <Link to={'/signup'}>SignUp</Link> page
           </label>
-        </CenterDiv>
+        </CenterDiv> */}
         {/* </form> */}
       </Box>
     </Section>
   );
 };
 
-export default Login;
+export default AdminAuth;

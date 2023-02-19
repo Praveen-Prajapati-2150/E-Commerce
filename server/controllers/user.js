@@ -38,9 +38,6 @@ export const signin = async (req, res) => {
 export const signup = async (req, res) => {
   const {email, password, firstName, lastName} = req.body;
 
-  // const firstName_ = firstName.autoCapitalize()
-  // const lastName_ = lastName.autoCapitalize()
-
   try {
     const oldUser = await UserModel.findOne({email})
 
