@@ -45,6 +45,7 @@ const Appp = styled.div`
 
 function App() {
   const dispatch = useDispatch();
+
   const user = JSON.parse(localStorage.getItem('profile'));
   const admin = JSON.parse(localStorage.getItem('adminProfile'));
 
@@ -53,6 +54,14 @@ function App() {
     dispatch(setAdmin(admin));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const getUser = async() => {
+    try{
+
+    } catch(err) {
+      
+    }
+  }
 
   return (
     <Router>

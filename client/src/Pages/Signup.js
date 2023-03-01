@@ -51,6 +51,7 @@ const Signup = () => {
   };
 
   const handleSubmit = () => {
+
     if (password !== confirmPassword) {
       window.alert('password is not matching');
     }
@@ -59,6 +60,13 @@ const Signup = () => {
       dispatch(register({ formValue, toast, navigate }));
     }
   };
+
+  const GoogleSignUp = () => {
+    window.open(
+      `${process.env.REACT_APP_DEV_URL}/auth/google/callback`,
+      '_self'
+    );
+  }
 
   return (
     <Section>
@@ -123,6 +131,10 @@ const Signup = () => {
             Already Registered, click to go <Link to={'/login'}>Login</Link>{' '}
             page
           </label>
+        </CenterDiv>
+
+        <CenterDiv>
+          <Button onClick={() => GoogleSignUp()}>Google SignUp</Button>
         </CenterDiv>
       </Box>
     </Section>

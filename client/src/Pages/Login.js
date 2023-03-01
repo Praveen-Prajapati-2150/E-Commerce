@@ -38,6 +38,13 @@ const Login = () => {
     }
   };
 
+  const googleLogin = (e) => {
+    window.open(
+      `${process.env.REACT_APP_DEV_URL}/auth/google/callback`,
+      '_self'
+    );
+  };
+
   return (
     <Section>
       <Box>
@@ -70,6 +77,10 @@ const Login = () => {
             Register if don't register, click to go{' '}
             <Link to={'/signup'}>SignUp</Link> page
           </label>
+        </CenterDiv>
+
+        <CenterDiv>
+          <Button onClick={googleLogin}>Google Login</Button>
         </CenterDiv>
         {/* </form> */}
       </Box>
