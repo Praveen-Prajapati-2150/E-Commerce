@@ -24,7 +24,7 @@ import NotFound from './Pages/NotFound';
 import CategoryProducts from './Pages/CategoryProducts';
 import AdminAuth from './Pages/AdminAuth';
 // import Navbar from './components/HeaderNav';
-// import AdminPanel from './Pages/AdminPanel';
+import AdminPanel from './Pages/AdminPanel';
 
 const theme = {
   colors: {
@@ -91,11 +91,11 @@ function App() {
               element={
                 <AdminPrivateRoute>
                   <Dashboard />
-                  {/* <AdminPanel /> */}
+                  <AdminPanel />
                 </AdminPrivateRoute>
               }
             >
-              {/* <Route path={'/admin'} element={<AdminAuth />} /> */}
+              <Route path={'/admin'} element={<AdminAuth />} />
               <Route path={'/admin/products'} element={<DashboardHome />} />
               <Route path={'/admin/add_product'} element={<AddProduct />} />
               <Route path={'/admin/update_tour/:id'} element={<AddProduct />} />
