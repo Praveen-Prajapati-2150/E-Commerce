@@ -72,6 +72,11 @@ app.use(bodyParser.json());
 // app.use('/', (req, res) => {
 //   res.send(`<div>
 //   <h1>Welcome to E-Commerce Site</h1>
+//   </div>`);
+// });
+// app.use('/', (req, res) => {
+//   res.send(`<div>
+//   <h1>Welcome to E-Commerce Site</h1>
 //   <button><a href="/auth/google">Login with Google</a></button>
 //   </div>`);
 // });
