@@ -1,44 +1,45 @@
-import React, {useEffect} from 'react';
-import styled from 'styled-components'
-import {Swiper, SwiperSlide} from "swiper/react";
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-import {Navigation} from "swiper";
-import {Button} from "./styles/Button.styled";
-import {useDispatch, useSelector} from "react-redux";
-import {getProducts} from "../redux/featuers/productSlice";
-import {Link} from 'react-router-dom'
-import {toast} from 'react-toastify'
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import { Navigation } from 'swiper';
+import { Button } from './styles/Button.styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProducts } from '../redux/featuers/productSlice';
+import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const excerpt = (str, count) => {
   if (str.length > count) {
-    str = str.substring(0, count) + " ...";
+    str = str.substring(0, count) + ' ...';
   }
   return str;
 };
 
+const Category = ({ category }) => {
+  const { products, loading, error } = useSelector((state) => ({
+    ...state.product,
+  }));
+  const dispatch = useDispatch();
 
-const Category = ({category}) => {
-  const {products, loading, error} = useSelector((state) => ({...state.product}))
-  const dispatch = useDispatch()
-
-  console.log("products", products)
+  console.log('products', products);
 
   useEffect(() => {
-    dispatch(getProducts())
-  }, [])
+    dispatch(getProducts());
+  }, []);
 
   useEffect(() => {
     // toast.error(`${error}`)
-    console.log(error)
-  }, [error])
+    console.log(error);
+  }, [error]);
 
   return (
     <CategoryList>
-      <div className={"container"}>
-        <div className={"heading"}>
+      <div className={'container'}>
+        <div className={'heading'}>
           <div>
             <h2>Best of {category}</h2>
             <p>Best of {category}</p>
@@ -57,45 +58,43 @@ const Category = ({category}) => {
           modules={[Navigation]}
           className="mySwiper"
         >
-
-          {
-            products?.map((prod, index) => {
-                if (loading) return null
-                if (prod.category === category)
-                  return (
-                    <SwiperSlide key={index}>
-                      <Link to={`/product/${prod._id}`}>
-                        <Product>
-                          <div className={"image"}>
-                            {
-                              prod.imageFile ?
-                                <img src={process.env.REACT_APP_IMAGE_PATH + prod.imageFile} alt={"prod"}/>
-                                :
-                                <img src={"/assets/product/no__product.png"} alt={"prod"}/>
+          {products?.map((prod, index) => {
+            if (loading) return null;
+            if (prod.category === category)
+              return (
+                <SwiperSlide key={index}>
+                  <Link to={`/product/${prod._id}`}>
+                    <Product>
+                      <div className={'image'}>
+                        {prod.imageFile ? (
+                          <img
+                            src={
+                              process.env.REACT_APP_IMAGE_PATH + prod.imageFile
                             }
-                          </div>
-                          <h3>{excerpt(prod.title, 20)}</h3>
-                          <h4>From ₹{prod.price}</h4>
-                          <label>
-                            {excerpt(prod.description, 25)}
-                          </label>
-                        </Product>
-                      </Link>
-                    </SwiperSlide>
-                  )
-              }
-            )
-          }
-
+                            alt={'prod'}
+                          />
+                        ) : (
+                          <img
+                            src={'/assets/product/no__product.png'}
+                            alt={'prod'}
+                          />
+                        )}
+                      </div>
+                      <h3>{excerpt(prod.title, 20)}</h3>
+                      <h4>From ₹{prod.price}</h4>
+                      <label>{excerpt(prod.description, 25)}</label>
+                    </Product>
+                  </Link>
+                </SwiperSlide>
+              );
+          })}
         </Swiper>
-
       </div>
     </CategoryList>
   );
 };
 
 export default Category;
-
 
 const CategoryList = styled.div`
   //height: 300px;
@@ -118,8 +117,7 @@ const CategoryList = styled.div`
     flex-direction: column;
     align-items: flex-start;
     border-radius: 4px;
-    box-shadow: 2px 2px 5px #dbdbdb,
-      -2px -2px 5px #ffffff;
+    box-shadow: 2px 2px 5px #dbdbdb, -2px -2px 5px #ffffff;
 
     .heading {
       height: 20%;
@@ -185,8 +183,8 @@ const CategoryList = styled.div`
       }
     }
   }
+`;
 
-`
 const Product = styled.div`
   //padding: 10px 10px;
   display: flex;
@@ -216,7 +214,9 @@ const Product = styled.div`
     }
   }
 
-  h3, h4, label {
+  h3,
+  h4,
+  label {
     text-align: center;
     white-space: nowrap;
     text-decoration: none;
@@ -242,6 +242,4 @@ const Product = styled.div`
     color: #a2a2a2;
     padding: 5px 0 0 0;
   }
-
-
-`
+`;
